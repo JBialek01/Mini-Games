@@ -1,11 +1,21 @@
 package Lotek;
 
-import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
-public class LotekWinChecker {
+class LotekWinChecker {
 
-    public static void checkResults(int[] userNumbers, int[] winningNumbers){
-        if(Arrays.equals(userNumbers, winningNumbers)) {
+    static void checkResults(int[] userNumbers, int[] winningNumbers){
+        Set<Integer> set=new HashSet<>();
+        for(int i=0;i<userNumbers.length;i++) {
+            for(int j=0;j<userNumbers.length;j++) {
+                if(userNumbers[i]==winningNumbers[j]) {
+                    set.add(winningNumbers[j]);
+                }
+            }
+        }
+        System.out.println("\n\nIlość trafionych liczb: " + set.size());
+        if(set.size() == winningNumbers.length) {
             System.out.println("\nGratulacje! Wygrałeś");
         }
         else {

@@ -1,8 +1,10 @@
 import Lotek.LotekGame;
+import Lotek.LotekRandomNumbersProvider;
+import Lotek.LotekUserNumbersProvider;
 
 import java.util.Scanner;
 
-public class GameSelector {
+class GameSelector {
 
     public static void selectGame(){
     Scanner sc = new Scanner(System.in);
@@ -14,7 +16,7 @@ public class GameSelector {
             gamePicker = sc.nextInt();
             switch (gamePicker) {
                 case 1: {
-                    LotekGame game = new LotekGame();
+                    LotekGame game = new LotekGame(new LotekUserNumbersProvider(), new LotekRandomNumbersProvider());
                     game.lotekGame();
                     break;
                 }
