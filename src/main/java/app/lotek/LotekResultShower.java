@@ -1,10 +1,12 @@
-package Lotek;
+package app.lotek;
+
+import java.util.Set;
 
 class LotekResultShower {
 
+    private final LotekWinChecker lotekWinChecker = new LotekWinChecker();
 
-    static void showResult(int[] userNumbers, int[] winningNumbers) {
-
+    void showResult(Set<Integer> userNumbers, Set<Integer> winningNumbers) {
         System.out.println("Twoje liczby:");
         for (int userNumber : userNumbers) {
             System.out.print("[" + userNumber + "] ");
@@ -13,6 +15,6 @@ class LotekResultShower {
         for (int winningNumber : winningNumbers) {
             System.out.print("[" + winningNumber + "] ");
         }
-        LotekWinChecker.checkResults(userNumbers, winningNumbers);
+        lotekWinChecker.checkResults(userNumbers, winningNumbers);
     }
 }
