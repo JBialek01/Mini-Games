@@ -3,19 +3,37 @@ package app;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
+import java.util.Scanner;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GameSelectorTest {
 
     @Test
-    public void Game_select_test() {
+    public void Game_select_test_if_no_games() {
         //given
-        GameSelector gameSelector = new GameSelector();
-        Mockito.when(gameSelector.selectGame()).thenReturn(1, 0);
+        Scanner scannerMock = Mockito.mock(Scanner.class);
+        Mockito.when(scannerMock.nextInt()).thenReturn(1);
+        GameSelector gameSelector = new GameSelector(List.of(), scannerMock);
         //when
-        gameSelector.selectGame();
+        int i = gameSelector.selectGame();
         //then
-        assertEquals(1, gameSelector.selectGame());
+        assertThat(i).isEqualTo(-1);
+    }
+
+    @Test
+    public void Game_select_test_if_one_game_is_available_and_selected_by_user() {
+        //given
+        Scanner scannerMock = Mockito.mock(Scanner.class);
+        Mockito.when(scannerMock.nextInt()).thenReturn(1, 0);
+        Game testGame = new GameTestImpl("Gumowe Ucho");
+        GameSelector gameSelector = new GameSelector(List.of(testGame), scannerMock);
+        //when
+        int i = gameSelector.selectGame();
+        //then
+        assertThat(i).isEqualTo(0);
     }
 
 }
