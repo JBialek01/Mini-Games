@@ -1,22 +1,25 @@
 package app;
 
 import app.guessnumber.GuessNumber;
+import app.guessnumber.UserNumberProvider;
+import app.guessnumber.WinChecker;
 import app.guessnumber.WinningNumberProvider;
 import app.lotek.LotekGame;
 import app.lotek.LotekRandomNumbersProvider;
 import app.lotek.LotekUserNumbersProvider;
 
-import java.util.HashSet;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.Set;
 
 class GameSelector {
-    public void selectGame(){
+
+    String message;
+
+    public int selectGame(){
     Scanner scanner = new Scanner(System.in);
-    Set<Game> game = new HashSet<>();
-    game.add(new LotekGame(new LotekUserNumbersProvider(), new LotekRandomNumbersProvider()));
-    game.add(new GuessNumber(new WinningNumberProvider()));
+//    Set<Game> game = new HashSet<>();
+//    game.add(new LotekGame(new LotekUserNumbersProvider(), new LotekRandomNumbersProvider()));
+//    game.add(new GuessNumber(new WinningNumberProvider(), new WinChecker(new UserNumberProvider())));
     int gamePicker = 99;
         while (gamePicker != 0) {
             System.out.println("\nWybierz grę:");
@@ -26,7 +29,8 @@ class GameSelector {
             try {
                 gamePicker = scanner.nextInt();
             } catch (InputMismatchException e) {
-                System.err.println("Podana wartość nie jest liczbą całkowitą");
+                message = "Podana wartość nie jest liczbą całkowitą";
+                System.err.println(message);
                 scanner.nextLine();
             }
             switch (gamePicker) {
@@ -34,19 +38,25 @@ class GameSelector {
                     break;
                 }
                 case 1: {
+                    message = "Wybrałeś grę Lotek";
+                    System.out.println(message);
                     Game lotekGame = new LotekGame(new LotekUserNumbersProvider(), new LotekRandomNumbersProvider());
                     lotekGame.startGame();
                     break;
                 }
                 case 2: {
-                    Game guessNumber = new GuessNumber(new WinningNumberProvider());
+                    message = "Wybrałeś grę GuessNumber";
+                    System.out.println(message);
+                    Game guessNumber = new GuessNumber(new WinningNumberProvider(), new WinChecker(new UserNumberProvider()));
                     guessNumber.startGame();
                     break;
                 }
                 default: {
-                    System.out.println("Wprowadź poprawny numer gry");
+                    message = "Wprowadź poprawny numer gry";
+                    System.out.println(message);
                 }
             }
         }
+        return gamePicker;
     }
 }

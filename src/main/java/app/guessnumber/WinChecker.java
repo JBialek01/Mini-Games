@@ -2,21 +2,32 @@ package app.guessnumber;
 
 public class WinChecker {
 
+    String message;
     int userNumber;
-    UserNumberProvider userNumberProvider = new UserNumberProvider();
+    UserNumberProvider userNumberProvider;
 
-    public void checkWin(int winningNumber){
+    public WinChecker(UserNumberProvider userNumberProvider) {
+        this.userNumberProvider = userNumberProvider;
+    }
+
+    public String checkWin(int winningNumber){
         do {
             userNumber = userNumberProvider.returnUserNumber();
-            if (userNumber != 0) {
+            if (userNumber != 0 && userNumber != -1) {
                 if (userNumber == winningNumber) {
-                    System.out.println("Gratulacje zgadłeś!");
+                    message = "Gratulacje zgadłeś!";
+                    System.out.println(message);
+                    return message;
                 } else if (userNumber > winningNumber) {
-                    System.out.println("Podana liczba jest za wysoka, spróbuj ponownie");
+                    message = "Podana liczba jest za wysoka";
+                    System.out.println(message);
                 } else if (userNumber < winningNumber) {
-                    System.out.println("Podana liczba jest za niska, spróbuj ponownie");
+                    message = "Podana liczba jest za niska";
+                    System.out.println(message);
                 }
             }
-        } while (userNumber != winningNumber);
+        } while (userNumber != winningNumber && userNumber != -1);
+        message += ", wyszedłeś z gry";
+        return message;
     }
 }

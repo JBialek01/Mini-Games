@@ -5,8 +5,9 @@ import java.util.Set;
 class LotekResultShower {
 
     private final LotekWinChecker lotekWinChecker = new LotekWinChecker();
+    String message;
 
-    void showResult(Set<Integer> userNumbers, Set<Integer> winningNumbers) {
+    String showResult(Set<Integer> userNumbers, Set<Integer> winningNumbers) {
         System.out.println("Twoje liczby:");
         for (int userNumber : userNumbers) {
             System.out.print("[" + userNumber + "] ");
@@ -15,6 +16,7 @@ class LotekResultShower {
         for (int winningNumber : winningNumbers) {
             System.out.print("[" + winningNumber + "] ");
         }
-        lotekWinChecker.checkResults(userNumbers, winningNumbers);
+        message = lotekWinChecker.checkResults(userNumbers, winningNumbers);
+        return message;
     }
 }

@@ -14,6 +14,7 @@ public class LotekGame implements Game {
     private final LotekResultShower resultShower = new LotekResultShower();
     Set<Integer> userNumbers = new TreeSet<>();
     Set<Integer> winningNumbers = new TreeSet<>();
+    String message;
 
     public LotekGame(LotekUserNumbersProvider userNumbersProvider, LotekRandomNumbersProvider randomNumbersProvider) {
         this.userNumbersProvider = userNumbersProvider;
@@ -22,8 +23,8 @@ public class LotekGame implements Game {
 
     @Override
     public void startGame() {
-        userNumbers = userNumbersProvider.insertUserNumbers();
+        userNumbers = userNumbersProvider.returnUserNumbers();
         winningNumbers = randomNumbersProvider.returnWinningNumbers();
-        resultShower.showResult(userNumbers, winningNumbers);
+        message = resultShower.showResult(userNumbers, winningNumbers);
     }
 }

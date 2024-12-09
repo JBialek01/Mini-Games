@@ -10,7 +10,7 @@ public class LotekUserNumbersProvider {
     private final Set<Integer> userNumbers = new TreeSet<>();
     int userNumber;
 
-    Set<Integer> insertUserNumbers() {
+    Set<Integer> returnUserNumbers() {
         Scanner scanner = new Scanner(System.in);
 
         do {
