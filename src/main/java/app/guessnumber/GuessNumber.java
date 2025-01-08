@@ -1,8 +1,9 @@
 package app.guessnumber;
 
 import app.Game;
+import app.Nameable;
 
-public class GuessNumber implements Game {
+public class GuessNumber implements Game, Nameable {
     public static final int LOWEST_NUMBER = 1;
     public static final int HIGHEST_NUMBER = 1000;
     private final WinningNumberProvider winningNumberProvider;
@@ -16,8 +17,14 @@ public class GuessNumber implements Game {
     }
 
     @Override
-    public void startGame() {
+    public String startGame() {
         winningNumber = winningNumberProvider.returnWinningNumber();
         message = winChecker.checkWin(winningNumber);
+        return message;
+    }
+
+    @Override
+    public String getName() {
+        return "Guess Number";
     }
 }

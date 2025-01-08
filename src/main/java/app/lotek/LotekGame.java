@@ -1,11 +1,12 @@
 package app.lotek;
 
 import app.Game;
+import app.Nameable;
 
 import java.util.Set;
 import java.util.TreeSet;
 
-public class LotekGame implements Game {
+public class LotekGame implements Game, Nameable {
     public static final int LOWEST_NUMBER = 1;
     public static final int HIGHEST_NUMBER = 99;
     public static final int NUMBERS_COUNT = 6;
@@ -22,9 +23,15 @@ public class LotekGame implements Game {
     }
 
     @Override
-    public void startGame() {
+    public String startGame() {
         userNumbers = userNumbersProvider.returnUserNumbers();
         winningNumbers = randomNumbersProvider.returnWinningNumbers();
         message = resultShower.showResult(userNumbers, winningNumbers);
+        return message;
+    }
+
+    @Override
+    public String getName() {
+        return "Lotto";
     }
 }
