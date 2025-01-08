@@ -1,6 +1,6 @@
 package app;
 
 public interface Game {
-    void startGame();
+    String startGame();
     String getName();
 }

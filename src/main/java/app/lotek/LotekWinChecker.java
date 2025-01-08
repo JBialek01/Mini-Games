@@ -5,7 +5,7 @@ import java.util.TreeSet;
 
 class LotekWinChecker {
 
-    static String message;
+    private String message;
 
     public String checkResults(Set<Integer> userNumbers, Set<Integer> winningNumbers) {
         Set<Integer> matchedNumbers = new TreeSet<>(userNumbers);

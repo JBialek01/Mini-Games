@@ -21,10 +21,10 @@ class LotekGameTest {
         Mockito.when(winningNumbersProvider.returnWinningNumbers()).thenReturn(Set.of(1, 2, 3, 4, 5, 6));
         LotekGame lotekGame = new LotekGame(userNumbersProvider, winningNumbersProvider);
         //when
-        lotekGame.startGame();
+        String message = lotekGame.startGame();
+
         //then
-        System.out.println(LotekWinChecker.message);
-        assertThat(winChecker.message).isEqualTo("\nGratulacje! Wygrałeś");
+        assertThat(message).isEqualTo("\nGratulacje! Wygrałeś");
     }
 
     @Test
@@ -37,9 +37,8 @@ class LotekGameTest {
         Mockito.when(winningNumbersProvider.returnWinningNumbers()).thenReturn(Set.of(1, 2, 3, 4, 5, 6));
         LotekGame lotekGame = new LotekGame(userNumbersProvider, winningNumbersProvider);
         //when
-        lotekGame.startGame();
+        String message = lotekGame.startGame();
         //then
-        System.out.println(LotekWinChecker.message);
-        assertThat(winChecker.message).isEqualTo("\nTym razem się nie udało, spróbuj ponownie");
+        assertThat(message).isEqualTo("\nTym razem się nie udało, spróbuj ponownie");
     }
 }

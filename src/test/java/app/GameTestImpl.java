@@ -9,8 +9,9 @@ class GameTestImpl implements Game {
     }
 
     @Override
-    public void startGame() {
+    public String startGame() {
         System.out.println("Started test game");
+        return "";
     }
 
     @Override

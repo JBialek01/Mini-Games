@@ -36,4 +36,17 @@ class GameSelectorTest {
         assertThat(i).isEqualTo(0);
     }
 
+    @Test
+    public void Game_select_two_games () {
+        //given
+        Scanner scannerMock = Mockito.mock(Scanner.class);
+        Mockito.when(scannerMock.nextInt()).thenReturn(1, 2, 0);
+        Game testGame = new GameTestImpl("Gumowe Ucho");
+        Game testGame2 = new GameTestImpl("Gumowe Ucho 2");
+        GameSelector gameSelector = new GameSelector(List.of(testGame, testGame2), scannerMock);
+        //when
+        int i = gameSelector.selectGame();
+        //then
+        assertThat(i).isEqualTo(0);
+    }
 }

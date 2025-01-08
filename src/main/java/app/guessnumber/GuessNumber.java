@@ -17,9 +17,10 @@ public class GuessNumber implements Game, Nameable {
     }
 
     @Override
-    public void startGame() {
+    public String startGame() {
         winningNumber = winningNumberProvider.returnWinningNumber();
         message = winChecker.checkWin(winningNumber);
+        return message;
     }
 
     @Override
