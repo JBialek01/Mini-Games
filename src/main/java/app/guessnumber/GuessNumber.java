@@ -8,7 +8,7 @@ public class GuessNumber implements Game, Nameable {
     public static final int HIGHEST_NUMBER = 1000;
     private final WinningNumberProvider winningNumberProvider;
     private final WinChecker winChecker;
-    int winningNumber;
+    static int winningNumber;
     String message;
 
     public GuessNumber(WinningNumberProvider winningNumberProvider, WinChecker winChecker) {

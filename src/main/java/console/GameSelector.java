@@ -1,11 +1,13 @@
-package app;
+package console;
+
+import app.Game;
 
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
-class GameSelector {
+public class GameSelector {
 
     String message;
     List<Game> games;

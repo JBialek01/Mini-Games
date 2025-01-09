@@ -4,14 +4,14 @@ public class WinChecker {
 
     String message;
     int userNumber;
-    UserNumberProvider userNumberProvider;
+    UserNumberProviderInterface userNumberProvider;
 
-    public WinChecker(UserNumberProvider userNumberProvider) {
+    public WinChecker(UserNumberProviderInterface userNumberProvider) {
         this.userNumberProvider = userNumberProvider;
     }
 
     public String checkWin(int winningNumber){
-        do {
+//        do {
             userNumber = userNumberProvider.returnUserNumber();
             if (userNumber != 0 && userNumber != -1) {
                 if (userNumber == winningNumber) {
@@ -21,13 +21,15 @@ public class WinChecker {
                 } else if (userNumber > winningNumber) {
                     message = "Podana liczba jest za wysoka";
                     System.out.println(message);
+                    return message;
                 } else if (userNumber < winningNumber) {
                     message = "Podana liczba jest za niska";
                     System.out.println(message);
+                    return message;
                 }
             }
-        } while (userNumber != winningNumber && userNumber != -1);
-        message += ", wyszedłeś z gry";
+//        } while (userNumber != winningNumber && userNumber != -1);
+//        message += ", wyszedłeś z gry";
         return message;
     }
 }
