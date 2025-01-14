@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-class HelloworldController {
+class GuessNumberController {
 
 
-    @GetMapping("/hello")
-    public String helloUserByName(@RequestParam("number") int number) {
+    @GetMapping("/guessNumber")
+    public String requestNumber(@RequestParam("number") int number) {
         GuessNumber guessNumber = new GuessNumber(new WinningNumberProvider(), new WinChecker(
                 new UserNumberWebProvider(number)
         ));

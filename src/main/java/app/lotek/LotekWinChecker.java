@@ -6,6 +6,11 @@ import java.util.TreeSet;
 class LotekWinChecker {
 
     private String message;
+    UserNumbersProviderInterface userNumbersProvider;
+
+    public LotekWinChecker(UserNumbersProviderInterface userNumbersProvider) {
+        this.userNumbersProvider = userNumbersProvider;
+    }
 
     public String checkResults(Set<Integer> userNumbers, Set<Integer> winningNumbers) {
         Set<Integer> matchedNumbers = new TreeSet<>(userNumbers);

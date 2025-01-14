@@ -4,7 +4,7 @@ import java.util.Set;
 
 class LotekResultShower {
 
-    private final LotekWinChecker lotekWinChecker = new LotekWinChecker();
+    private final LotekWinChecker lotekWinChecker = new LotekWinChecker(new LotekUserNumbersProvider());
     String message;
 
     String showResult(Set<Integer> userNumbers, Set<Integer> winningNumbers) {

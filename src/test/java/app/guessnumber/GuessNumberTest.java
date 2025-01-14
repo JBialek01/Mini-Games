@@ -1,5 +1,6 @@
 package app.guessnumber;
 
+import console.UserNumberProvider;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
