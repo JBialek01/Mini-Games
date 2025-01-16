@@ -14,12 +14,14 @@ public class GuessNumber implements Game, Nameable {
     public GuessNumber(WinningNumberProvider winningNumberProvider, WinChecker winChecker) {
         this.winningNumberProvider = winningNumberProvider;
         this.winChecker = winChecker;
+        winningNumber = winningNumberProvider.returnWinningNumber();
+
     }
 
     @Override
-    public String startGame() {
-        winningNumber = winningNumberProvider.returnWinningNumber();
-        message = winChecker.checkWin(winningNumber);
+    public String startGame(boolean isHtml) {
+        int userNumber = winChecker.getUserNumberProvider().returnUserNumber();
+        message = winChecker.checkWin(winningNumber, userNumber);
         return message;
     }
 

@@ -1,6 +1,6 @@
 package app;
 
 public interface Game {
-    String startGame();
+    String startGame(boolean isHtml);
     String getName();
 }

@@ -9,8 +9,11 @@ public class LotekRandomNumbersProvider {
 
     Set<Integer> returnWinningNumbers() {
         Random rand = new Random();
-        for (int i = 0; i < LotekGame.NUMBERS_COUNT; i++) {
-            randomNumbers.add(rand.nextInt(LotekGame.LOWEST_NUMBER, LotekGame.HIGHEST_NUMBER));
+        while (randomNumbers.size() < LotekGame.NUMBERS_COUNT) {
+            int number = rand.nextInt(
+                    LotekGame.HIGHEST_NUMBER - LotekGame.LOWEST_NUMBER + 1
+            ) + LotekGame.LOWEST_NUMBER;
+            randomNumbers.add(number);
         }
         return randomNumbers;
     }
