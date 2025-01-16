@@ -43,7 +43,8 @@ public class GameSelector {
                 }
                 Game game = games.get(gamePicker - 1);
                 System.out.println("Wybrałeś grę: " + game.getName());
-                game.startGame();
+                String result = game.startGame(false);
+                System.out.println(result);
             } catch (InputMismatchException e) {
                 message = "Podana wartość nie jest liczbą całkowitą";
                 System.err.println(message);

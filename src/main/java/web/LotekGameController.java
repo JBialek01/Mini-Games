@@ -29,7 +29,7 @@ class LotekGameController {
 
         LotekGame lotekGame = new LotekGame(userNumbersProvider, randomNumbersProvider);
 
-        String result = lotekGame.startGame();
+        String result = lotekGame.startGame(true);
 
         return result;
     }

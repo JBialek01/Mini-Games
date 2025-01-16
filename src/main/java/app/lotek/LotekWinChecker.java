@@ -3,10 +3,10 @@ package app.lotek;
 import java.util.Set;
 import java.util.TreeSet;
 
-class LotekWinChecker {
+public class LotekWinChecker {
 
     private String message;
-    UserNumbersProviderInterface userNumbersProvider;
+    private final UserNumbersProviderInterface userNumbersProvider;
 
     public LotekWinChecker(UserNumbersProviderInterface userNumbersProvider) {
         this.userNumbersProvider = userNumbersProvider;
@@ -15,14 +15,12 @@ class LotekWinChecker {
     public String checkResults(Set<Integer> userNumbers, Set<Integer> winningNumbers) {
         Set<Integer> matchedNumbers = new TreeSet<>(userNumbers);
         matchedNumbers.retainAll(winningNumbers);
-        message = ("\n\nIlość trafionych liczb: " + matchedNumbers.size());
-        System.out.println(message);
-        if (matchedNumbers.size() == winningNumbers.size()) {
-            message = ("\nGratulacje! Wygrałeś");
-            System.out.println(message);
+        int matchedCount = matchedNumbers.size();
+        message = "Ilość trafionych liczb: " + matchedCount;
+        if (matchedCount == winningNumbers.size()) {
+            message += "\nGratulacje! Wygrałeś!";
         } else {
-            message = ("\nTym razem się nie udało, spróbuj ponownie");
-            System.out.println(message);
+            message += "\nTym razem się nie udało, spróbuj ponownie";
         }
         return message;
     }

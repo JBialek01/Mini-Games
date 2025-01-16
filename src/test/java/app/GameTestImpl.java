@@ -9,7 +9,7 @@ class GameTestImpl implements Game {
     }
 
     @Override
-    public String startGame() {
+    public String startGame(boolean isHtml) {
         System.out.println("Started test game");
         return "";
     }

@@ -19,7 +19,7 @@ public class GuessNumber implements Game, Nameable {
     }
 
     @Override
-    public String startGame() {
+    public String startGame(boolean isHtml) {
         int userNumber = winChecker.getUserNumberProvider().returnUserNumber();
         message = winChecker.checkWin(winningNumber, userNumber);
         return message;

@@ -19,7 +19,7 @@ class GuessNumberTest {
         Mockito.when(winningNumberProvider.returnWinningNumber()).thenReturn(1);
         GuessNumber guessNumber = new GuessNumber(winningNumberProvider, winChecker);
         //when
-        String message = guessNumber.startGame();
+        String message = guessNumber.startGame(false);
         //then
         assertThat(message).isEqualTo("Podana liczba jest za wysoka, wyszedłeś z gry");
     }
@@ -34,7 +34,7 @@ class GuessNumberTest {
         Mockito.when(winningNumberProvider.returnWinningNumber()).thenReturn(87);
         GuessNumber guessNumber = new GuessNumber(winningNumberProvider, winChecker);
         //when
-        String message = guessNumber.startGame();
+        String message = guessNumber.startGame(false);
         //then
         assertThat(message).isEqualTo("Podana liczba jest za niska, wyszedłeś z gry");
     }
@@ -49,7 +49,7 @@ class GuessNumberTest {
         Mockito.when(winningNumberProvider.returnWinningNumber()).thenReturn(55);
         GuessNumber guessNumber = new GuessNumber(winningNumberProvider, winChecker);
         //when
-        String message = guessNumber.startGame();
+        String message = guessNumber.startGame(false);
         //then
         assertThat(message).isEqualTo("Gratulacje zgadłeś!");
     }

@@ -23,10 +23,10 @@ public class LotekGame implements Game, Nameable {
     }
 
     @Override
-    public String startGame() {
+    public String startGame(boolean isHtml) {
         userNumbers = userNumbersProvider.returnUserNumbers();
         winningNumbers = randomNumbersProvider.returnWinningNumbers();
-        message = resultShower.showResult(userNumbers, winningNumbers);
+        message = resultShower.showResult(userNumbers, winningNumbers, isHtml);
         return message;
     }
 

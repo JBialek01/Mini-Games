@@ -19,7 +19,7 @@ public class GuessNumberConsoleGame implements Game {
         this.winningNumber = winningNumberProvider.returnWinningNumber();
     }
     @Override
-    public String startGame() {
+    public String startGame(boolean isHtml) {
         String message;
         do {
             int userNumber = userNumberProvider.returnUserNumber();
