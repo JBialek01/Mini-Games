@@ -14,9 +14,9 @@ import java.util.Scanner;
 public class ConsoleAppMain {
     public static void main(String[] args) {
         Game lotekGame = new LotekGame(new LotekUserNumbersProvider(), new LotekRandomNumbersProvider());
-        Game guessNumber = new GuessNumber(new WinningNumberProvider(), new WinChecker(new UserNumberProvider()));
+        Game guessNumberConsoleGame = new GuessNumberConsoleGame(new UserNumberProvider());
         Scanner scanner = new Scanner(System.in);
-        GameSelector gameSelector = new GameSelector(List.of(lotekGame, guessNumber), scanner);
+        GameSelector gameSelector = new GameSelector(List.of(lotekGame, guessNumberConsoleGame), scanner);
         gameSelector.selectGame();
     }
 }

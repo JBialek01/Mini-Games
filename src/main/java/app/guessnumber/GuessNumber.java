@@ -20,7 +20,8 @@ public class GuessNumber implements Game, Nameable {
 
     @Override
     public String startGame() {
-        message = winChecker.checkWin(winningNumber);
+        int userNumber = winChecker.getUserNumberProvider().returnUserNumber();
+        message = winChecker.checkWin(winningNumber, userNumber);
         return message;
     }
 

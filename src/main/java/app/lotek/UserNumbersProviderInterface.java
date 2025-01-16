@@ -1,5 +1,7 @@
 package app.lotek;
 
+import java.util.Set;
+
 public interface UserNumbersProviderInterface {
-    int[] returnUserNumbers();
+    Set<Integer>returnUserNumbers();
 }

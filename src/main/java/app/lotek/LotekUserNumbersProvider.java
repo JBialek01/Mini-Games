@@ -10,9 +10,8 @@ public class LotekUserNumbersProvider implements UserNumbersProviderInterface {
     private final Set<Integer> userNumbers = new TreeSet<>();
     int userNumber;
 
-    Set<Integer> returnUserNumbers() {
+    public Set<Integer> returnUserNumbers() {
         Scanner scanner = new Scanner(System.in);
-
         do {
             System.out.print("Wprowadź liczbę: ");
             try{

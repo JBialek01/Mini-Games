@@ -10,14 +10,14 @@ public class LotekGame implements Game, Nameable {
     public static final int LOWEST_NUMBER = 1;
     public static final int HIGHEST_NUMBER = 99;
     public static final int NUMBERS_COUNT = 6;
-    private final LotekUserNumbersProvider userNumbersProvider;
+    private final UserNumbersProviderInterface userNumbersProvider;
     private final LotekRandomNumbersProvider randomNumbersProvider;
     private final LotekResultShower resultShower = new LotekResultShower();
     Set<Integer> userNumbers = new TreeSet<>();
     Set<Integer> winningNumbers = new TreeSet<>();
     String message;
 
-    public LotekGame(LotekUserNumbersProvider userNumbersProvider, LotekRandomNumbersProvider randomNumbersProvider) {
+    public LotekGame(UserNumbersProviderInterface userNumbersProvider, LotekRandomNumbersProvider randomNumbersProvider) {
         this.userNumbersProvider = userNumbersProvider;
         this.randomNumbersProvider = randomNumbersProvider;
     }
