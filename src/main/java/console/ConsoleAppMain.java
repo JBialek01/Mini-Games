@@ -1,9 +1,6 @@
 package console;
 
 import app.Game;
-import app.guessnumber.GuessNumber;
-import app.guessnumber.WinChecker;
-import app.guessnumber.WinningNumberProvider;
 import app.lotek.LotekGame;
 import app.lotek.LotekRandomNumbersProvider;
 import app.lotek.LotekUserNumbersProvider;

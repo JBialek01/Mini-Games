@@ -17,9 +17,9 @@ class GuessNumberTest {
         WinChecker winChecker = new WinChecker(userNumberProvider);
         WinningNumberProvider winningNumberProvider = mock(WinningNumberProvider.class);
         Mockito.when(winningNumberProvider.returnWinningNumber()).thenReturn(1);
-        GuessNumber guessNumber = new GuessNumber(winningNumberProvider, winChecker);
+        GuessNumber guessNumber = new GuessNumber(winningNumberProvider.returnWinningNumber(), winChecker);
         //when
-        String message = guessNumber.startGame(false);
+        String message = guessNumber.startGame();
         //then
         assertThat(message).isEqualTo("Podana liczba jest za wysoka, wyszedłeś z gry");
     }
@@ -32,9 +32,9 @@ class GuessNumberTest {
         WinChecker winChecker = new WinChecker(userNumberProvider);
         WinningNumberProvider winningNumberProvider = mock(WinningNumberProvider.class);
         Mockito.when(winningNumberProvider.returnWinningNumber()).thenReturn(87);
-        GuessNumber guessNumber = new GuessNumber(winningNumberProvider, winChecker);
+        GuessNumber guessNumber = new GuessNumber(winningNumberProvider.returnWinningNumber(), winChecker);
         //when
-        String message = guessNumber.startGame(false);
+        String message = guessNumber.startGame();
         //then
         assertThat(message).isEqualTo("Podana liczba jest za niska, wyszedłeś z gry");
     }
@@ -47,9 +47,9 @@ class GuessNumberTest {
         WinChecker winChecker = new WinChecker(userNumberProvider);
         WinningNumberProvider winningNumberProvider = mock(WinningNumberProvider.class);
         Mockito.when(winningNumberProvider.returnWinningNumber()).thenReturn(55);
-        GuessNumber guessNumber = new GuessNumber(winningNumberProvider, winChecker);
+        GuessNumber guessNumber = new GuessNumber(winningNumberProvider.returnWinningNumber(), winChecker);
         //when
-        String message = guessNumber.startGame(false);
+        String message = guessNumber.startGame();
         //then
         assertThat(message).isEqualTo("Gratulacje zgadłeś!");
     }

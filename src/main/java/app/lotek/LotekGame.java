@@ -1,6 +1,7 @@
 package app.lotek;
 
 import app.Game;
+import app.GameResult;
 import app.Nameable;
 
 import java.util.Set;
@@ -23,15 +24,17 @@ public class LotekGame implements Game, Nameable {
     }
 
     @Override
-    public String startGame(boolean isHtml) {
+    public GameResult startGame() {
         userNumbers = userNumbersProvider.returnUserNumbers();
         winningNumbers = randomNumbersProvider.returnWinningNumbers();
-        message = resultShower.showResult(userNumbers, winningNumbers, isHtml);
-        return message;
+        String message = lotekWinChecker.checkResults(userNumbers, winningNumbers);
+        return new GameResult(userNumbers, winningNumbers, message);
     }
 
     @Override
     public String getName() {
         return "Lotto";
     }
+
+    private final LotekWinChecker lotekWinChecker = new LotekWinChecker(new LotekUserNumbersProvider());
 }

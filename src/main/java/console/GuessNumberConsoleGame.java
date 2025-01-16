@@ -1,6 +1,7 @@
 package console;
 
 import app.Game;
+import app.GameResult;
 import app.guessnumber.UserNumberProviderInterface;
 import app.guessnumber.WinChecker;
 import app.guessnumber.WinningNumberProvider;
@@ -14,25 +15,31 @@ public class GuessNumberConsoleGame implements Game {
 
     public GuessNumberConsoleGame(UserNumberProviderInterface userNumberProvider) {
         this.userNumberProvider = userNumberProvider;
-        this.winChecker = new WinChecker(userNumberProvider);
+        this.winChecker = new WinChecker();
         this.winningNumberProvider = new WinningNumberProvider();
         this.winningNumber = winningNumberProvider.returnWinningNumber();
     }
+
     @Override
-    public String startGame(boolean isHtml) {
+    public GameResult startGame() {
+        return checkWin();
+    }
+
+    private GameResult checkWin() {
         String message;
         do {
             int userNumber = userNumberProvider.returnUserNumber();
             if (userNumber == -1) {
                 message = "Wyszedłeś z gry";
                 System.out.println(message);
-                return message;
+                return new GameResult(null, null, message);
             }
             message = winChecker.checkWin(winningNumber, userNumber);
         } while (!"Gratulacje zgadłeś!".equals(message));
 
-        return "Koniec gry – " + message;
+        return new GameResult(null, null, "Koniec gry – " + message);
     }
+
     @Override
     public String getName() {
         return "GuessNumber";

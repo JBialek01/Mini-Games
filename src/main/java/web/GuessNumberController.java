@@ -1,6 +1,5 @@
 package web;
 
-import app.guessnumber.GuessNumber;
 import app.guessnumber.WinChecker;
 import app.guessnumber.WinningNumberProvider;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +17,8 @@ class GuessNumberController {
 
     @GetMapping("/guessNumber")
     public String requestNumber(@RequestParam("number") int number){
-        WinChecker winChecker = new WinChecker(new UserNumberWebProvider(number));
+//        WinChecker winChecker = new WinChecker(new UserNumberWebProvider(number));
+        WinChecker winChecker = new WinChecker();
         return winChecker.checkWin(guessNumberSession.getWinningNumber(), number);
     }
 }

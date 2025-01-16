@@ -16,6 +16,10 @@ public class LotekWinChecker {
         Set<Integer> matchedNumbers = new TreeSet<>(userNumbers);
         matchedNumbers.retainAll(winningNumbers);
         int matchedCount = matchedNumbers.size();
+        return buildMessage(winningNumbers, matchedCount);
+    }
+
+    private String buildMessage(Set<Integer> winningNumbers, int matchedCount) {
         message = "Ilość trafionych liczb: " + matchedCount;
         if (matchedCount == winningNumbers.size()) {
             message += "\nGratulacje! Wygrałeś!";

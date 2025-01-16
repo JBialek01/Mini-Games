@@ -1,10 +1,12 @@
 package console;
 
 import app.Game;
+import app.GameResult;
 
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class GameSelector {
@@ -43,7 +45,8 @@ public class GameSelector {
                 }
                 Game game = games.get(gamePicker - 1);
                 System.out.println("Wybrałeś grę: " + game.getName());
-                String result = game.startGame(false);
+                GameResult result = game.startGame();
+                message = showResultConsole(result.getUserNumbers(), result.getWinningNumbers(), result.getMessage());
                 System.out.println(result);
             } catch (InputMismatchException e) {
                 message = "Podana wartość nie jest liczbą całkowitą";
@@ -54,5 +57,19 @@ public class GameSelector {
             }
         }
         return gamePicker;
+    }
+
+    private String showResultConsole(Set<Integer> userNumbers, Set<Integer> winningNumbers, String checkResult) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Twoje liczby:\n");
+        for (int userNumber : userNumbers) {
+            sb.append("[").append(userNumber).append("] ");
+        }
+        sb.append("\nZwycięskie liczby:\n");
+        for (int winningNumber : winningNumbers) {
+            sb.append("[").append(winningNumber).append("] ");
+        }
+        sb.append("\n").append(checkResult);
+        return sb.toString();
     }
 }

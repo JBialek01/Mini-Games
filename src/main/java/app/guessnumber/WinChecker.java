@@ -3,15 +3,15 @@ package app.guessnumber;
 public class WinChecker {
 
     String message;
-    UserNumberProviderInterface userNumberProvider;
-
-    public WinChecker(UserNumberProviderInterface userNumberProvider) {
-        this.userNumberProvider = userNumberProvider;
-    }
-
-    public UserNumberProviderInterface getUserNumberProvider() {
-        return userNumberProvider;
-    }
+//    UserNumberProviderInterface userNumberProvider;
+//
+//    public WinChecker(UserNumberProviderInterface userNumberProvider) {
+//        this.userNumberProvider = userNumberProvider;
+//    }
+//
+//    public UserNumberProviderInterface getUserNumberProvider() {
+//        return userNumberProvider;
+//    }
 
     public String checkWin(int winningNumber, int userNumber){
             if (userNumber != 0 && userNumber != -1) {
