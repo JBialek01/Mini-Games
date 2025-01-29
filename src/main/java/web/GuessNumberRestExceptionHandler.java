@@ -1,0 +1,4 @@
+package web;
+
+class GuessNumberRestExceptionHandler {
+}

@@ -28,6 +28,22 @@ class LotekGameTest {
     }
 
     @Test
+    public void user_entered_two_same_numbers(){
+        //given
+        LotekUserNumbersProvider userNumbersProvider = mock(LotekUserNumbersProvider.class);
+        Mockito.when(userNumbersProvider.returnUserNumbers()).thenReturn(Set.of(1, 1, 3, 4, 5, 6));
+        LotekWinChecker winChecker = new LotekWinChecker();
+        LotekRandomNumbersProvider winningNumbersProvider = mock(LotekRandomNumbersProvider.class);
+        Mockito.when(winningNumbersProvider.returnWinningNumbers()).thenReturn(Set.of(1, 2, 3, 4, 5, 6));
+        LotekGame lotekGame = new LotekGame(userNumbersProvider, winningNumbersProvider);
+        //when
+        String message = lotekGame.startGame(false);
+
+        //then
+        assertThat(message).isEqualTo("\nGratulacje! Wygrałeś");
+    }
+
+    @Test
     public void User_numbers_incorrect() {
         //given
         LotekUserNumbersProvider userNumbersProvider = mock(LotekUserNumbersProvider.class);
