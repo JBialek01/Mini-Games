@@ -1,11 +1,12 @@
 package app.guessnumber;
 
-import console.UserNumberProvider;
+import pl.games.app.guessnumber.WinChecker;
+import pl.games.app.guessnumber.WinningNumberProvider;
+import pl.games.console.UserNumberProvider;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 class GuessNumberTest {

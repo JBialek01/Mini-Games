@@ -1,6 +1,7 @@
 package app;
 
-import console.GameSelector;
+import pl.games.app.Game;
+import pl.games.console.GameSelector;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 

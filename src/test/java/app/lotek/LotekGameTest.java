@@ -2,11 +2,14 @@ package app.lotek;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import pl.games.app.lotek.LotekGame;
+import pl.games.app.lotek.LotekRandomNumbersProvider;
+import pl.games.app.lotek.LotekUserNumbersProvider;
+import pl.games.app.lotek.LotekWinChecker;
 
 import java.util.Set;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 class LotekGameTest {

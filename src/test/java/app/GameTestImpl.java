@@ -1,5 +1,8 @@
 package app;
 
+import pl.games.app.Game;
+import pl.games.app.GameResult;
+
 class GameTestImpl implements Game {
 
     public String name;
@@ -9,9 +12,9 @@ class GameTestImpl implements Game {
     }
 
     @Override
-    public String startGame(boolean isHtml) {
+    public GameResult startGame() {
         System.out.println("Started test game");
-        return "";
+        return null;
     }
 
     @Override
