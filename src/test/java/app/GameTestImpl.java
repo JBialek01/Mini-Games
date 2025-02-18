@@ -1,7 +1,7 @@
 package app;
 
-import pl.games.app.Game;
-import pl.games.app.GameResult;
+import pl.games.app.core.Game;
+import pl.games.app.core.GameResult;
 
 class GameTestImpl implements Game {
 
