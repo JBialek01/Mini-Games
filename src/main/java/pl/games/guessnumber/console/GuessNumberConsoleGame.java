@@ -6,6 +6,8 @@ import pl.games.guessnumber.core.UserNumberProvider;
 import pl.games.guessnumber.core.WinChecker;
 import pl.games.guessnumber.core.WinningNumberProvider;
 
+import java.util.Collections;
+
 public class GuessNumberConsoleGame implements Game {
 
     private final WinChecker winChecker;
@@ -37,7 +39,7 @@ public class GuessNumberConsoleGame implements Game {
             message = winChecker.checkWin(winningNumber, userNumber);
         } while (!"Gratulacje zgadłeś!".equals(message));
 
-        return new GameResult(null, null, "Koniec gry – " + message);
+        return new GameResult(Collections.emptySet(), Collections.emptySet(), "Koniec gry – " + message);
     }
 
     @Override
