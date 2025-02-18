@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -33,7 +34,6 @@ public class LotekUserNumberWebProvider implements UserNumbersProvider {
     public void addNumber(int number) {
         numbers.add(number);
     }
-
 
     @Override
     public Set<Integer> returnUserNumbers() {

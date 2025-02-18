@@ -1,4 +1,4 @@
-package pl.games.app.web;
+package pl.games;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

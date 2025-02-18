@@ -7,9 +7,9 @@ public class LotekEntity {
     private final String userNumbers;
     private final String winningNumbers;
 
-    public LotekEntity(String winningNumbers, String userNumbers) {
-        this.winningNumbers = winningNumbers;
+    public LotekEntity(String userNumbers, String winningNumbers) {
         this.userNumbers = userNumbers;
+        this.winningNumbers = winningNumbers;
         this.id = UUID.randomUUID().toString();
     }
 
