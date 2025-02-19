@@ -1,5 +1,6 @@
 package pl.games.lotek.web;
 
+import org.springframework.context.annotation.Scope;
 import pl.games.lotek.core.UserNumbersProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 @Component
+@Scope("prototype")
 public class LotekUserNumberWebProvider implements UserNumbersProvider {
 
 
