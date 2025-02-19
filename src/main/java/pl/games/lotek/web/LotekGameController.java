@@ -1,5 +1,6 @@
 package pl.games.lotek.web;
 
+import org.springframework.context.annotation.Scope;
 import pl.games.app.core.GameResult;
 import pl.games.lotek.repository.LotekEntity;
 import pl.games.lotek.core.LotekGame;
@@ -12,6 +13,7 @@ import java.util.Map;
 import java.util.Set;
 
 @RestController
+@Scope("request")
 class LotekGameController {
 
     private final LotekGame lotekGame;

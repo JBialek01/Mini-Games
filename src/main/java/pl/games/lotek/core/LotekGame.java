@@ -9,10 +9,7 @@ import pl.games.lotek.repository.LotekEntity;
 import pl.games.lotek.repository.LotekRepository;
 import pl.games.lotek.web.LotekUserNumberWebProvider;
 
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 @Component
 @Scope("prototype")
@@ -42,8 +39,10 @@ public class LotekGame implements Game, Nameable {
         String message = lotekWinChecker.checkResults(userNumbers, winningNumbers);
         LotekEntity lotekEntity = new LotekEntity(userNumbers.toString(), winningNumbers.toString());
         lotekRepository.save(lotekEntity);
-        return new GameResult(userNumbers, winningNumbers, message);
-
+//        TreeSet<Integer> copy = new TreeSet<>(userNumbers);
+        GameResult gameResult = new GameResult(userNumbers, winningNumbers, message);
+//        userNumbers.clear();
+        return gameResult;
     }
 
     public Map<String, LotekEntity> fetchGameHistoryForAllUsers(){

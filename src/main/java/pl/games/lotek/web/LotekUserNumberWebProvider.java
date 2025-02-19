@@ -19,6 +19,7 @@ public class LotekUserNumberWebProvider implements UserNumbersProvider {
     private final Set<Integer> numbers = new TreeSet<>();
 
     public LotekUserNumberWebProvider() {
+        System.out.println("123");
         //this.numbers = new TreeSet<>();
 //        numbers.add(number1);
 //        numbers.add(number2);
