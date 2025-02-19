@@ -1,8 +1,13 @@
 package pl.games.lotek.repository;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.UUID;
 
+@Document(collection = "lotek")
 public class LotekEntity {
+    @Id
     private final String id;
     private final String userNumbers;
     private final String winningNumbers;

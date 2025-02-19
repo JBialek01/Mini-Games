@@ -45,8 +45,8 @@ public class LotekGame implements Game, Nameable {
         return gameResult;
     }
 
-    public Map<String, LotekEntity> fetchGameHistoryForAllUsers(){
-        return lotekRepository.fetchAll();
+    public List<LotekEntity> fetchGameHistoryForAllUsers(){
+        return lotekRepository.findAll();
     }
 
 
