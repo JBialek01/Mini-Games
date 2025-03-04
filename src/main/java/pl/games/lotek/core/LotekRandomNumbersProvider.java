@@ -1,5 +1,6 @@
 package pl.games.lotek.core;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.Random;
@@ -7,6 +8,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 @Component
+@Scope("prototype")
 public class LotekRandomNumbersProvider {
     private final Set<Integer> randomNumbers = new TreeSet<>();
 

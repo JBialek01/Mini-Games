@@ -1,14 +1,5 @@
 package app.lotek;
 
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import pl.games.lotek.core.LotekGame;
-import pl.games.lotek.core.LotekRandomNumbersProvider;
-import pl.games.lotek.core.LotekUserNumbersProvider;
-import pl.games.lotek.core.LotekWinChecker;
-
-import java.util.Set;
-
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.mock;
 

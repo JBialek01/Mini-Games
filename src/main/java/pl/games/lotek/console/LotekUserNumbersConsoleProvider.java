@@ -1,11 +1,14 @@
-package pl.games.lotek.core;
+package pl.games.lotek.console;
+
+import pl.games.lotek.core.LotekGame;
+import pl.games.lotek.core.UserNumbersProvider;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class LotekUserNumbersProvider implements UserNumbersProvider {
+public class LotekUserNumbersConsoleProvider implements UserNumbersProvider {
 
     private final Set<Integer> userNumbers = new TreeSet<>();
     int userNumber;

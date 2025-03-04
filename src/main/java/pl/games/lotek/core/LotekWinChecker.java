@@ -20,11 +20,11 @@ public class LotekWinChecker {
     }
 
     private String buildMessage(Set<Integer> winningNumbers, int matchedCount) {
-        message = "Ilość trafionych liczb: " + matchedCount;
+        message = "Ilość trafionych liczb: " + matchedCount + ", ";
         if (matchedCount == winningNumbers.size()) {
-            message += "\nGratulacje! Wygrałeś!";
+            message += "Gratulacje! Wygrałeś!";
         } else {
-            message += "\nTym razem się nie udało, spróbuj ponownie";
+            message += "Tym razem się nie udało, spróbuj ponownie";
         }
         return message;
     }
