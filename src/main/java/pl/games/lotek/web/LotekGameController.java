@@ -1,7 +1,9 @@
 package pl.games.lotek.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import pl.games.app.core.GameResult;
+import pl.games.app.core.UserNumbersProvider;
 import pl.games.lotek.repository.LotekEntity;
 import pl.games.lotek.core.LotekGame;
 import org.springframework.http.ResponseEntity;
@@ -14,90 +16,37 @@ import java.util.Set;
 
 @RestController
 @Scope("request")
-class LotekGameController {
+public class LotekGameController {
 
     private final LotekGame lotekGame;
+    private final UserNumbersProvider userNumbersProvider;
 
-    public LotekGameController(LotekGame lotekGame) {
+    public LotekGameController(LotekGame lotekGame, LotekUserNumberWebProvider userNumbersProvider) {
         this.lotekGame = lotekGame;
+        this.userNumbersProvider = userNumbersProvider;
     }
 
     @GetMapping("/lotekGame")
-    public String requestNumbers(@RequestParam("number1") int number1,
-                                 @RequestParam("number2") int number2,
-                                 @RequestParam("number3") int number3,
-                                 @RequestParam("number4") int number4,
-                                 @RequestParam("number5") int number5,
-                                 @RequestParam("number6") int number6) {
+    public GameResult requestNumbers(@RequestParam("number1") Integer number1,
+                                     @RequestParam("number2") Integer number2,
+                                     @RequestParam("number3") Integer number3,
+                                     @RequestParam("number4") Integer number4,
+                                     @RequestParam("number5") Integer number5,
+                                     @RequestParam("number6") Integer number6) {
 
-//        LotekUserNumberWebProvider userNumbersProvider =
-//                new LotekUserNumberWebProvider(number1, number2, number3, number4, number5, number6);
-
-        //LotekRandomNumbersProvider randomNumbersProvider = new LotekRandomNumbersProvider();
-//        LotekGame lotekGame = new LotekGame(userNumbersProvider, randomNumbersProvider);
-
-        lotekGame.getUserNumbersProvider().addNumber(number1);
-        lotekGame.getUserNumbersProvider().addNumber(number2);
-        lotekGame.getUserNumbersProvider().addNumber(number3);
-        lotekGame.getUserNumbersProvider().addNumber(number4);
-        lotekGame.getUserNumbersProvider().addNumber(number5);
-        lotekGame.getUserNumbersProvider().addNumber(number6);
+//        lotekGame.getUserNumbersProvider().addNumber(number1);
+//        lotekGame.getUserNumbersProvider().addNumber(number2);
+//        lotekGame.getUserNumbersProvider().addNumber(number3);
+//        lotekGame.getUserNumbersProvider().addNumber(number4);
+//        lotekGame.getUserNumbersProvider().addNumber(number5);
+//        lotekGame.getUserNumbersProvider().addNumber(number6);
+        userNumbersProvider.addNumbers(Set.of(number1, number2, number3, number4, number5, number6));
         GameResult result = lotekGame.startGame();
-
-
-        String html = showResultHtml(result.getUserNumbers(), result.getWinningNumbers(), result.getMessage());
-        return html;
+        return result;
     }
-
-//    @GetMapping("/lotekGame2")
-//    public ResponseEntity<?> requestNumbersWithJson(@RequestParam("number1") int number1,
-//                                                    @RequestParam("number2") int number2,
-//                                                    @RequestParam("number3") int number3,
-//                                                    @RequestParam("number4") int number4,
-//                                                    @RequestParam("number5") int number5,
-//                                                    @RequestParam("number6") int number6) {
-//        try {
-//            LotekUserNumberWebProvider userNumbersProvider =
-//                    new LotekUserNumberWebProvider(number1, number2, number3, number4, number5, number6);
-//            LotekRandomNumbersProvider randomNumbersProvider = new LotekRandomNumbersProvider();
-//            LotekGame lotekGame = new LotekGame(userNumbersProvider, randomNumbersProvider);
-//
-//            GameResult result = lotekGame.startGame();
-//
-//            Set<Integer> userNumbers = result.getUserNumbers();
-//            Set<Integer> winningNumbers = result.getWinningNumbers();
-//            String message = result.getMessage();
-////        String html = showResultHtml(userNumbers, winningNumbers, message);
-//
-//            LotekGameResponseJson lotekGameResponseJson = new LotekGameResponseJson(userNumbers, winningNumbers, message);
-//            ResponseEntity<LotekGameResponseJson> ok = ResponseEntity.ok(lotekGameResponseJson);
-//            return ok;
-//        } catch (UserGaveDifferentNumberCountThanSix e) {
-//            GameResponseErrorJson gameResponseErrorJson = new GameResponseErrorJson(e.getMessage());
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(gameResponseErrorJson);
-//        }
-//    }
 
     @GetMapping("/lotekGameHistory")
     public ResponseEntity<List<LotekEntity>> fetchGameHistoryForAllUsers(){
         return ResponseEntity.ok(lotekGame.fetchGameHistoryForAllUsers());
     }
-
-    private String showResultHtml(Set<Integer> userNumbers, Set<Integer> winningNumbers, String checkResult) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("<h2>Twoje liczby:</h2><p>");
-        for (int userNumber : userNumbers) {
-            sb.append("[").append(userNumber).append("] ");
-        }
-        sb.append("</p>");
-        sb.append("<h2>Zwycięskie liczby:</h2><p>");
-        for (int winningNumber : winningNumbers) {
-            sb.append("[").append(winningNumber).append("] ");
-        }
-        sb.append("</p>");
-        checkResult = checkResult.replace("\n", "<br>");
-        sb.append("<p>").append(checkResult).append("</p>");
-        return sb.toString();
-    }
-
 }

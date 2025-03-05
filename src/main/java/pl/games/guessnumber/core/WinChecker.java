@@ -1,5 +1,8 @@
 package pl.games.guessnumber.core;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class WinChecker {
 
     String message;

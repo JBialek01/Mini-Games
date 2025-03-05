@@ -8,9 +8,13 @@ import java.util.UUID;
 @Document(collection = "lotek")
 public class LotekEntity {
     @Id
-    private final String id;
-    private final String userNumbers;
-    private final String winningNumbers;
+    private String id;
+    private String userNumbers;
+    private String winningNumbers;
+
+    public LotekEntity() {
+    }
+
 
     public LotekEntity(String userNumbers, String winningNumbers) {
         this.userNumbers = userNumbers;

@@ -29,7 +29,7 @@ public class LotekRepositoryInMemoryDb implements LotekRepository {
 
     @Override
     public LotekEntity save(LotekEntity lotekEntity) {
-        return null;
+        return lotekEntity;
     }
 
 //    @Override
