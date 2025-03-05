@@ -1,8 +1,12 @@
 package pl.games.lotek.core;
 
+import org.springframework.stereotype.Component;
+import pl.games.app.core.UserNumbersProvider;
+
 import java.util.Set;
 import java.util.TreeSet;
 
+@Component
 public class LotekWinChecker {
 
     private String message;

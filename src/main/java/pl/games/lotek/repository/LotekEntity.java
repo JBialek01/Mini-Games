@@ -15,6 +15,7 @@ public class LotekEntity {
     public LotekEntity() {
     }
 
+
     public LotekEntity(String userNumbers, String winningNumbers) {
         this.userNumbers = userNumbers;
         this.winningNumbers = winningNumbers;

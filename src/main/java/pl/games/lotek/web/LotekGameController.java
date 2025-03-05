@@ -1,7 +1,9 @@
 package pl.games.lotek.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import pl.games.app.core.GameResult;
+import pl.games.app.core.UserNumbersProvider;
 import pl.games.lotek.repository.LotekEntity;
 import pl.games.lotek.core.LotekGame;
 import org.springframework.http.ResponseEntity;
@@ -10,15 +12,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @Scope("request")
 public class LotekGameController {
 
     private final LotekGame lotekGame;
+    private final UserNumbersProvider userNumbersProvider;
 
-    public LotekGameController(LotekGame lotekGame) {
+    public LotekGameController(LotekGame lotekGame, LotekUserNumberWebProvider userNumbersProvider) {
         this.lotekGame = lotekGame;
+        this.userNumbersProvider = userNumbersProvider;
     }
 
     @GetMapping("/lotekGame")
@@ -29,12 +34,13 @@ public class LotekGameController {
                                      @RequestParam("number5") Integer number5,
                                      @RequestParam("number6") Integer number6) {
 
-        lotekGame.getUserNumbersProvider().addNumber(number1);
-        lotekGame.getUserNumbersProvider().addNumber(number2);
-        lotekGame.getUserNumbersProvider().addNumber(number3);
-        lotekGame.getUserNumbersProvider().addNumber(number4);
-        lotekGame.getUserNumbersProvider().addNumber(number5);
-        lotekGame.getUserNumbersProvider().addNumber(number6);
+//        lotekGame.getUserNumbersProvider().addNumber(number1);
+//        lotekGame.getUserNumbersProvider().addNumber(number2);
+//        lotekGame.getUserNumbersProvider().addNumber(number3);
+//        lotekGame.getUserNumbersProvider().addNumber(number4);
+//        lotekGame.getUserNumbersProvider().addNumber(number5);
+//        lotekGame.getUserNumbersProvider().addNumber(number6);
+        userNumbersProvider.addNumbers(Set.of(number1, number2, number3, number4, number5, number6));
         GameResult result = lotekGame.startGame();
         return result;
     }

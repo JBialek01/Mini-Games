@@ -1,23 +1,18 @@
-package pl.games.lotek.web;
+package pl.games.guessnumber.web;
 
 import org.springframework.context.annotation.Scope;
-import pl.games.app.core.UserNumbersProvider;
 import org.springframework.stereotype.Component;
+import pl.games.app.core.UserNumbersProvider;
 
 import java.util.Set;
 import java.util.TreeSet;
 
 @Component
 @Scope("request")
-public class LotekUserNumberWebProvider implements UserNumbersProvider {
-
+public class GuessNumberUserNumberWebProvider implements UserNumbersProvider {
     private final Set<Integer> userNumbers = new TreeSet<>();
 
-    public LotekUserNumberWebProvider() {}
-
-    public void addNumber(int number) {
-        userNumbers.add(number);
-    }
+    public GuessNumberUserNumberWebProvider() {}
 
     @Override
     public void addNumbers(Set<Integer> numbers) {
@@ -29,4 +24,3 @@ public class LotekUserNumberWebProvider implements UserNumbersProvider {
         return userNumbers;
     }
 }
-

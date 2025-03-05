@@ -5,7 +5,7 @@ import pl.games.app.core.Game;
 import pl.games.app.core.GameResult;
 import pl.games.app.core.Nameable;
 import org.springframework.stereotype.Component;
-import pl.games.lotek.console.LotekUserNumbersConsoleProvider;
+import pl.games.app.core.UserNumbersProvider;
 import pl.games.lotek.repository.LotekEntity;
 import pl.games.lotek.repository.LotekRepository;
 import pl.games.lotek.web.LotekUserNumberWebProvider;
@@ -22,14 +22,16 @@ public class LotekGame implements Game, Nameable {
     private final LotekRandomNumbersProvider randomNumbersProvider;
     private final LotekRepository lotekRepository;
     private final LotekResultShower resultShower = new LotekResultShower();
+    private final LotekWinChecker lotekWinChecker;
     Set<Integer> userNumbers = new TreeSet<>();
     Set<Integer> winningNumbers = new TreeSet<>();
     String message;
 
-    public LotekGame(UserNumbersProvider userNumbersProvider, LotekRandomNumbersProvider randomNumbersProvider, LotekRepository lotekRepository) {
+    public LotekGame(UserNumbersProvider userNumbersProvider, LotekRandomNumbersProvider randomNumbersProvider, LotekRepository lotekRepository, LotekWinChecker lotekWinChecker) {
         this.userNumbersProvider = userNumbersProvider;
         this.randomNumbersProvider = randomNumbersProvider;
         this.lotekRepository = lotekRepository;
+        this.lotekWinChecker = lotekWinChecker;
     }
 
     @Override
@@ -52,7 +54,7 @@ public class LotekGame implements Game, Nameable {
         return "Lotto";
     }
 
-    private final LotekWinChecker lotekWinChecker = new LotekWinChecker(new LotekUserNumbersConsoleProvider());
+    //private final LotekWinChecker lotekWinChecker = new LotekWinChecker(new LotekUserNumbersConsoleProvider());
 
     public LotekUserNumberWebProvider getUserNumbersProvider() {
         return (LotekUserNumberWebProvider) userNumbersProvider;
