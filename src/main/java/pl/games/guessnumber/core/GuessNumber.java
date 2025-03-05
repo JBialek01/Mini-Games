@@ -7,6 +7,7 @@ import pl.games.app.core.Game;
 import pl.games.app.core.GameResult;
 import pl.games.app.core.Nameable;
 import pl.games.app.core.UserNumbersProvider;
+import pl.games.guessnumber.web.GuessNumberUserNumberWebProvider;
 
 import java.util.Random;
 
@@ -20,7 +21,7 @@ public class GuessNumber implements Game, Nameable {
     private final UserNumbersProvider userNumbersProvider;
     String message;
 
-    public GuessNumber(WinChecker winChecker, UserNumbersProvider userNumbersProvider) {
+    public GuessNumber(WinChecker winChecker, GuessNumberUserNumberWebProvider userNumbersProvider) {
         this.winChecker = winChecker;
         this.userNumbersProvider = userNumbersProvider;
         this.winningNumber = new Random().nextInt(LOWEST_NUMBER, HIGHEST_NUMBER);

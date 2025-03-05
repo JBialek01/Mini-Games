@@ -27,7 +27,7 @@ public class LotekGame implements Game, Nameable {
     Set<Integer> winningNumbers = new TreeSet<>();
     String message;
 
-    public LotekGame(UserNumbersProvider userNumbersProvider, LotekRandomNumbersProvider randomNumbersProvider, LotekRepository lotekRepository, LotekWinChecker lotekWinChecker) {
+    public LotekGame(LotekUserNumberWebProvider userNumbersProvider, LotekRandomNumbersProvider randomNumbersProvider, LotekRepository lotekRepository, LotekWinChecker lotekWinChecker) {
         this.userNumbersProvider = userNumbersProvider;
         this.randomNumbersProvider = randomNumbersProvider;
         this.lotekRepository = lotekRepository;

@@ -1,4 +1,4 @@
-package pl.games.lotek.error;
+package pl.games.lotek.web.error;
 
 import org.springframework.http.HttpStatus;
 

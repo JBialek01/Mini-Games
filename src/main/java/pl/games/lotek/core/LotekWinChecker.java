@@ -2,6 +2,7 @@ package pl.games.lotek.core;
 
 import org.springframework.stereotype.Component;
 import pl.games.app.core.UserNumbersProvider;
+import pl.games.lotek.web.LotekUserNumberWebProvider;
 
 import java.util.Set;
 import java.util.TreeSet;
@@ -12,7 +13,7 @@ public class LotekWinChecker {
     private String message;
     private final UserNumbersProvider userNumbersProvider;
 
-    public LotekWinChecker(UserNumbersProvider userNumbersProvider) {
+    public LotekWinChecker(LotekUserNumberWebProvider userNumbersProvider) {
         this.userNumbersProvider = userNumbersProvider;
     }
 

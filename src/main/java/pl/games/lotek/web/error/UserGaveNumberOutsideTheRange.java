@@ -1,4 +1,4 @@
-package pl.games.lotek.error;
+package pl.games.lotek.web.error;
 
 public class UserGaveNumberOutsideTheRange extends RuntimeException {
     public UserGaveNumberOutsideTheRange(String message) {

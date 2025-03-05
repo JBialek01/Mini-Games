@@ -1,4 +1,4 @@
-package pl.games.lotek.error;
+package pl.games.lotek.web.error;
 
 
 import lombok.extern.log4j.Log4j2;
