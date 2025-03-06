@@ -2,14 +2,18 @@ package pl.games.lotek.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
-public interface LotekRepository extends MongoRepository<LotekEntity, String> {
+public interface LotekRepository extends MongoRepository<LotekTicketEntity, String> {
 
-    LotekEntity save(LotekEntity lotekEntity);
+    LotekTicketEntity save(LotekTicketEntity lotekTicketEntity);
 
-//    Map<String, LotekEntity> fetchAll();
+    List<LotekTicketEntity> findAll();
 
-    List<LotekEntity> findAll();
+    List<LotekTicketEntity> findByUserId(String userId);
+
+    List<LotekTicketEntity> findByDate(LocalDate previousDay);
+
+    List<LotekTicketEntity> findByUserIdAndDate(String userId, LocalDate previousDay);
 }

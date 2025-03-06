@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +17,7 @@ import java.util.function.Function;
 @Component
 public class LotekRepositoryInMemoryDb implements LotekRepository {
 
-    static Map<String, LotekEntity> db = new HashMap<>();
+    static Map<String, LotekTicketEntity> db = new HashMap<>();
 
     public LotekRepositoryInMemoryDb() {
     }
@@ -28,8 +29,8 @@ public class LotekRepositoryInMemoryDb implements LotekRepository {
 //    }
 
     @Override
-    public LotekEntity save(LotekEntity lotekEntity) {
-        return lotekEntity;
+    public LotekTicketEntity save(LotekTicketEntity lotekTicketEntity) {
+        return lotekTicketEntity;
     }
 
 //    @Override
@@ -38,57 +39,57 @@ public class LotekRepositoryInMemoryDb implements LotekRepository {
 //    }
 
     @Override
-    public <S extends LotekEntity> S insert(S entity) {
+    public <S extends LotekTicketEntity> S insert(S entity) {
         return null;
     }
 
     @Override
-    public <S extends LotekEntity> List<S> insert(Iterable<S> entities) {
+    public <S extends LotekTicketEntity> List<S> insert(Iterable<S> entities) {
         return List.of();
     }
 
     @Override
-    public <S extends LotekEntity> Optional<S> findOne(Example<S> example) {
+    public <S extends LotekTicketEntity> Optional<S> findOne(Example<S> example) {
         return Optional.empty();
     }
 
     @Override
-    public <S extends LotekEntity> List<S> findAll(Example<S> example) {
+    public <S extends LotekTicketEntity> List<S> findAll(Example<S> example) {
         return List.of();
     }
 
     @Override
-    public <S extends LotekEntity> List<S> findAll(Example<S> example, Sort sort) {
+    public <S extends LotekTicketEntity> List<S> findAll(Example<S> example, Sort sort) {
         return List.of();
     }
 
     @Override
-    public <S extends LotekEntity> Page<S> findAll(Example<S> example, Pageable pageable) {
+    public <S extends LotekTicketEntity> Page<S> findAll(Example<S> example, Pageable pageable) {
         return null;
     }
 
     @Override
-    public <S extends LotekEntity> long count(Example<S> example) {
+    public <S extends LotekTicketEntity> long count(Example<S> example) {
         return 0;
     }
 
     @Override
-    public <S extends LotekEntity> boolean exists(Example<S> example) {
+    public <S extends LotekTicketEntity> boolean exists(Example<S> example) {
         return false;
     }
 
     @Override
-    public <S extends LotekEntity, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+    public <S extends LotekTicketEntity, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         return null;
     }
 
     @Override
-    public <S extends LotekEntity> List<S> saveAll(Iterable<S> entities) {
+    public <S extends LotekTicketEntity> List<S> saveAll(Iterable<S> entities) {
         return List.of();
     }
 
     @Override
-    public Optional<LotekEntity> findById(String s) {
+    public Optional<LotekTicketEntity> findById(String s) {
         return Optional.empty();
     }
 
@@ -98,12 +99,27 @@ public class LotekRepositoryInMemoryDb implements LotekRepository {
     }
 
     @Override
-    public List<LotekEntity> findAll() {
+    public List<LotekTicketEntity> findAll() {
         return List.of();
     }
 
     @Override
-    public List<LotekEntity> findAllById(Iterable<String> strings) {
+    public List<LotekTicketEntity> findByUserId(String userId) {
+        return List.of();
+    }
+
+    @Override
+    public List<LotekTicketEntity> findByDate(LocalDate previousDay) {
+        return List.of();
+    }
+
+    @Override
+    public List<LotekTicketEntity> findByUserIdAndDate(String userId, LocalDate previousDay) {
+        return List.of();
+    }
+
+    @Override
+    public List<LotekTicketEntity> findAllById(Iterable<String> strings) {
         return List.of();
     }
 
@@ -114,36 +130,31 @@ public class LotekRepositoryInMemoryDb implements LotekRepository {
 
     @Override
     public void deleteById(String s) {
-
     }
 
     @Override
-    public void delete(LotekEntity entity) {
-
+    public void delete(LotekTicketEntity entity) {
     }
 
     @Override
     public void deleteAllById(Iterable<? extends String> strings) {
-
     }
 
     @Override
-    public void deleteAll(Iterable<? extends LotekEntity> entities) {
-
+    public void deleteAll(Iterable<? extends LotekTicketEntity> entities) {
     }
 
     @Override
     public void deleteAll() {
-
     }
 
     @Override
-    public List<LotekEntity> findAll(Sort sort) {
+    public List<LotekTicketEntity> findAll(Sort sort) {
         return List.of();
     }
 
     @Override
-    public Page<LotekEntity> findAll(Pageable pageable) {
+    public Page<LotekTicketEntity> findAll(Pageable pageable) {
         return null;
     }
 }

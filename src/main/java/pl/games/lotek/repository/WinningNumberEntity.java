@@ -3,28 +3,30 @@ package pl.games.lotek.repository;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Document(collection = "lotek")
-public class LotekEntity {
+@Document(collection = "winningNumbers")
+public class WinningNumberEntity {
+
     @Id
     private String id;
-    private String userNumbers;
+    private LocalDate date;
     private String winningNumbers;
 
-    public LotekEntity() {
+    public WinningNumberEntity() {
     }
 
-
-    public LotekEntity(String userNumbers, String winningNumbers) {
-        this.userNumbers = userNumbers;
+    public WinningNumberEntity(LocalDate date, String winningNumbers) {
+        this.date = date;
         this.winningNumbers = winningNumbers;
         this.id = UUID.randomUUID().toString();
     }
 
-    public LotekEntity(String id, String userNumbers, String winningNumbers) {
+    public WinningNumberEntity(String id, LocalDate date, String winningNumbers) {
         this.id = id;
-        this.userNumbers = userNumbers;
+        this.date = date;
         this.winningNumbers = winningNumbers;
     }
 
@@ -32,8 +34,8 @@ public class LotekEntity {
         return id;
     }
 
-    public String getUserNumbers() {
-        return userNumbers;
+    public LocalDate getDate() {
+        return date;
     }
 
     public String getWinningNumbers() {
