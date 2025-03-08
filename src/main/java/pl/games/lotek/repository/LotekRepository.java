@@ -3,6 +3,7 @@ package pl.games.lotek.repository;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface LotekRepository extends MongoRepository<LotekTicketEntity, String> {
@@ -16,4 +17,5 @@ public interface LotekRepository extends MongoRepository<LotekTicketEntity, Stri
     List<LotekTicketEntity> findByDate(LocalDate previousDay);
 
     List<LotekTicketEntity> findByUserIdAndDate(String userId, LocalDate previousDay);
+
 }

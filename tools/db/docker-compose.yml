@@ -9,8 +9,10 @@ services:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: password
       MONGO_INITDB_DATABASE: games
+      TZ: Europe/Warsaw
     volumes:
       - mongodb_data:/data/db
+
 
 volumes:
   mongodb_data:

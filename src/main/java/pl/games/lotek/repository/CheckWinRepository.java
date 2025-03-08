@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface CheckWinRepository extends MongoRepository<CheckWinEntity, String> {
     List<CheckWinEntity> findByUserIdAndDate(String userId, LocalDate date);
+    List<CheckWinEntity> findByUserIdAndUserNumbersIdAndDate(String userId, String userNumbersId, LocalDate date);
 }
+

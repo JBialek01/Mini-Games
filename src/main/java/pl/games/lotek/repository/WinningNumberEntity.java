@@ -1,5 +1,6 @@
 package pl.games.lotek.repository;
 
+import lombok.Getter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -8,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Document(collection = "winningNumbers")
+@Getter
 public class WinningNumberEntity {
 
     @Id
@@ -28,17 +30,5 @@ public class WinningNumberEntity {
         this.id = id;
         this.date = date;
         this.winningNumbers = winningNumbers;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public String getWinningNumbers() {
-        return winningNumbers;
     }
 }

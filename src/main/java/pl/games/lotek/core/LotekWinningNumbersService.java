@@ -6,6 +6,8 @@ import pl.games.lotek.repository.WinningNumberEntity;
 import pl.games.lotek.repository.WinningNumberRepository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
@@ -36,8 +38,8 @@ public class LotekWinningNumbersService {
     private Set<Integer> generateWinningNumbers() {
         Random rand = new Random();
         Set<Integer> numbers = new TreeSet<>();
-        while (numbers.size() < 6) {
-            numbers.add(rand.nextInt(99) + 1);
+        while (numbers.size() < LotekConstants.NUMBERS_COUNT) {
+            numbers.add(rand.nextInt(LotekConstants.LOWEST_NUMBER, LotekConstants.HIGHEST_NUMBER));
         }
         return numbers;
     }

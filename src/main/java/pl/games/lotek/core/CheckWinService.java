@@ -1,5 +1,6 @@
 package pl.games.lotek.core;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.games.lotek.repository.*;
 
@@ -9,23 +10,19 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class CheckWinService {
+
     private final CheckWinRepository checkWinRepository;
     private final LotekRepository lotekRepository;
     private final WinningNumberRepository winningNumberRepository;
 
-    public CheckWinService(CheckWinRepository checkWinRepository, LotekRepository lotekRepository, WinningNumberRepository winningNumberRepository) {
-        this.checkWinRepository = checkWinRepository;
-        this.lotekRepository = lotekRepository;
-        this.winningNumberRepository = winningNumberRepository;
-    }
-
     public void checkAndSaveResults(String userId) {
         LocalDate previousDay = LocalDate.now().minusDays(1);
-        List<String> userTickets = lotekRepository.findByUserIdAndDate(userId, previousDay)
-                .stream()
-                .map(ticket -> ticket.getUserNumbers())
-                .collect(Collectors.toList());
+        List<LotekTicketEntity> userTickets = lotekRepository.findByUserIdAndDate(userId, previousDay);
+        if (userTickets.isEmpty()) {
+            return;
+        }
 
         WinningNumberEntity winningNumbersEntity = winningNumberRepository.findByDate(previousDay);
         if (winningNumbersEntity == null) {
@@ -34,14 +31,28 @@ public class CheckWinService {
 
         Set<Integer> winningNumbers = parseNumbers(winningNumbersEntity.getWinningNumbers());
 
-        for (String ticketNumbers : userTickets) {
-            Set<Integer> userNumbers = parseNumbers(ticketNumbers);
+        for (LotekTicketEntity ticket : userTickets) {
+            // Sprawdzenie, czy wynik już istnieje
+            boolean alreadyExists = !checkWinRepository.findByUserIdAndUserNumbersIdAndDate(userId, ticket.getId(), previousDay).isEmpty();
+            if (alreadyExists) {
+                continue; // Jeśli wpis już istnieje, nie zapisujemy ponownie
+            }
+
+            Set<Integer> userNumbers = parseNumbers(ticket.getUserNumbers());
             long hits = userNumbers.stream().filter(winningNumbers::contains).count();
 
-            CheckWinEntity result = new CheckWinEntity(userId, previousDay, ticketNumbers, winningNumbersEntity.getWinningNumbers(), String.valueOf(hits));
+            CheckWinEntity result = new CheckWinEntity(
+                    userId,
+                    ticket.getId(),
+                    ticket.getUserNumbers(),
+                    previousDay,
+                    winningNumbersEntity.getWinningNumbers(),
+                    String.valueOf(hits)
+            );
             checkWinRepository.save(result);
         }
     }
+
 
     private Set<Integer> parseNumbers(String numbersString) {
         return Set.of(numbersString.replace("[", "").replace("]", "").split(", "))

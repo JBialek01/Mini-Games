@@ -1,12 +1,15 @@
 package pl.games.lotek.repository;
 
+import lombok.Getter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Document(collection = "lotekTickets")
+@Getter
 public class LotekTicketEntity {
 
     @Id
@@ -23,21 +26,5 @@ public class LotekTicketEntity {
         this.userNumbers = userNumbers;
         this.date = date;
         this.id = UUID.randomUUID().toString();
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public String getUserNumbers() {
-        return userNumbers;
-    }
-
-    public LocalDate getDate() {
-        return date;
     }
 }

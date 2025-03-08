@@ -16,9 +16,6 @@ public class LotekUserNumberWebProvider implements UserNumbersProvider {
 
     public LotekUserNumberWebProvider() {}
 
-    public void addNumber(int number) {
-        userNumbers.add(number);
-    }
 
     @Override
     public void addNumbers(Set<Integer> numbers) {
