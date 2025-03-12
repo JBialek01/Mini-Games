@@ -1,13 +1,10 @@
 package pl.games.lotek.core;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.games.lotek.repository.WinningNumberEntity;
 import pl.games.lotek.repository.WinningNumberRepository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
@@ -21,16 +18,16 @@ public class LotekWinningNumbersService {
         this.winningNumberRepository = winningNumberRepository;
     }
 
-    public Set<Integer> getWinningNumbersForToday() {
-        LocalDate today = LocalDate.now();
-        WinningNumberEntity existingRecord = winningNumberRepository.findByDate(today);
+    public Set<Integer> getWinningNumbersForYesterday() {
+        LocalDate yesterday = LocalDate.now().minusDays(1);
+        WinningNumberEntity existingRecord = winningNumberRepository.findByDate(yesterday);
 
         if (existingRecord != null) {
             return parseNumbers(existingRecord.getWinningNumbers());
         }
 
         Set<Integer> newWinningNumbers = generateWinningNumbers();
-        WinningNumberEntity newEntry = new WinningNumberEntity(today, newWinningNumbers.toString());
+        WinningNumberEntity newEntry = new WinningNumberEntity(yesterday, newWinningNumbers.toString());
         winningNumberRepository.save(newEntry);
         return newWinningNumbers;
     }
