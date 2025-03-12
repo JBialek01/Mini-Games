@@ -28,5 +28,13 @@ public class RequestErrorHandler {
         log.warn("User gave number outside the range 1-99");
         return new RequestErrorResponseDto(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(UserGaveRepeatedNumbers.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public RequestErrorResponseDto handleException(UserGaveRepeatedNumbers exception) {
+        log.warn("User gave repeated numbers");
+        return new RequestErrorResponseDto(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }
 

@@ -6,14 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Component;
 import pl.games.auth.AuthenticatedUserService;
-import pl.games.lotek.repository.CheckWinEntity;
-import pl.games.lotek.repository.CheckWinRepository;
-import pl.games.lotek.repository.LotekRepository;
-import pl.games.lotek.repository.LotekTicketEntity;
+import pl.games.lotek.repository.*;
 import pl.games.lotek.web.LotekUserNumberWebProvider;
+import pl.games.lotek.web.error.UserGaveNumberOutsideTheRange;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.List;
 import java.util.Set;
 
@@ -28,19 +25,25 @@ public class LotekGameService {
     private final CheckWinService checkWinService;
     private final CheckWinRepository checkWinRepository;
     private final AuthenticatedUserService authenticatedUserService;
+    private final RankingService rankingService;
 
 
-    public TicketSubmission submitTicket(OAuth2User user) {
+    public TicketSubmissionDto submitTicket(OAuth2User user) {
         String userId = authenticatedUserService.getAuthenticatedUserId(user);
         Set<Integer> userNumbers = userNumbersProvider.returnUserNumbers();
+        for (Integer number : userNumbers) {
+            if (number < 1 || number > 99) {
+                throw new UserGaveNumberOutsideTheRange("Podane liczby muszą być w zakresie 1-99!");
+            }
+        }
         LotekTicketEntity lotekTicketEntity = new LotekTicketEntity(userId, userNumbers.toString(), LocalDate.now());
         lotekRepository.save(lotekTicketEntity);
-        return new TicketSubmission(userNumbers, "Los zapisany!");
+        return new TicketSubmissionDto(userNumbers, "Los zapisany!");
     }
 
     public List<CheckWinEntity> checkWin(OAuth2User user) {
         String userId = authenticatedUserService.getAuthenticatedUserId(user);
-        lotekWinningNumbersService.getWinningNumbersForToday();
+        lotekWinningNumbersService.getWinningNumbersForYesterday();
         List<LotekTicketEntity> userTickets = lotekRepository.findByUserId(userId);
         if (userTickets.isEmpty()) {
             return List.of();
@@ -54,5 +57,10 @@ public class LotekGameService {
 
     public ResponseEntity<List<LotekTicketEntity>> showAllTickets() {
         return ResponseEntity.ok(lotekRepository.findAll());
+    }
+
+    public ResponseEntity<List<RankingEntity>> getRanking() {
+        List<RankingEntity> ranking = rankingService.generateRanking();
+        return ResponseEntity.ok(ranking);
     }
 }

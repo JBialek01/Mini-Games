@@ -23,11 +23,7 @@ public class CheckWinService {
         if (userTickets.isEmpty()) {
             return;
         }
-
         WinningNumberEntity winningNumbersEntity = winningNumberRepository.findByDate(previousDay);
-        if (winningNumbersEntity == null) {
-            return;
-        }
 
         Set<Integer> winningNumbers = parseNumbers(winningNumbersEntity.getWinningNumbers());
 
@@ -52,7 +48,6 @@ public class CheckWinService {
             checkWinRepository.save(result);
         }
     }
-
 
     private Set<Integer> parseNumbers(String numbersString) {
         return Set.of(numbersString.replace("[", "").replace("]", "").split(", "))
