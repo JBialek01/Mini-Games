@@ -14,20 +14,20 @@ public class RankingEntity {
     @Id
     private String id;
     private LocalDate date;
-    private String hits;
+    private Integer hits;
     private String userId;
 
     public RankingEntity() {
     }
 
-    public RankingEntity(LocalDate date, String hits, String userId) {
+    public RankingEntity(LocalDate date, Integer hits, String userId) {
         this.id = UUID.randomUUID().toString();
         this.date = date;
         this.hits = hits;
         this.userId = userId;
     }
 
-    public RankingEntity(String id, LocalDate date, String hits, String userId) {
+    public RankingEntity(String id, LocalDate date, Integer hits, String userId) {
         this.id = id;
         this.date = date;
         this.hits = hits;

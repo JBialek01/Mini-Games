@@ -36,7 +36,7 @@ public class LotekGameService {
                 throw new UserGaveNumberOutsideTheRange("Podane liczby muszą być w zakresie 1-99!");
             }
         }
-        LotekTicketEntity lotekTicketEntity = new LotekTicketEntity(userId, userNumbers.toString(), LocalDate.now());
+        LotekTicketEntity lotekTicketEntity = new LotekTicketEntity(userId, userNumbers, LocalDate.now());
         lotekRepository.save(lotekTicketEntity);
         return new TicketSubmissionDto(userNumbers, "Los zapisany!");
     }

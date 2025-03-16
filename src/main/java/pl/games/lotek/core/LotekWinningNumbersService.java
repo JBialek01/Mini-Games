@@ -23,11 +23,11 @@ public class LotekWinningNumbersService {
         WinningNumberEntity existingRecord = winningNumberRepository.findByDate(yesterday);
 
         if (existingRecord != null) {
-            return parseNumbers(existingRecord.getWinningNumbers());
+            return existingRecord.getWinningNumbers();
         }
 
         Set<Integer> newWinningNumbers = generateWinningNumbers();
-        WinningNumberEntity newEntry = new WinningNumberEntity(yesterday, newWinningNumbers.toString());
+        WinningNumberEntity newEntry = new WinningNumberEntity(yesterday, newWinningNumbers);
         winningNumberRepository.save(newEntry);
         return newWinningNumbers;
     }

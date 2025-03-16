@@ -31,12 +31,13 @@ public class RankingService {
         }
 
         List<CheckWinEntity> previousDayResults = checkWinRepository.findByDate(previousDay);
+        List<CheckWin> checkWins = CheckWinMapper.mapToCheckWin(previousDayResults);
 
-        Map<String, String> userBestHits = previousDayResults.stream()
+        Map<String, Integer> userBestHits = previousDayResults.stream()
                 .collect(Collectors.toMap(
                         CheckWinEntity::getUserId,
                         CheckWinEntity::getHits,
-                        (existing, replacement) -> Integer.parseInt(existing) > Integer.parseInt(replacement) ? existing : replacement));
+                        (existing, replacement) -> existing > replacement ? existing : replacement));
 
         List<RankingEntity> ranking = userBestHits.entrySet().stream()
                 .filter(entry -> rankingRepository.findByDateAndUserId(previousDay, entry.getKey()).isEmpty())
@@ -48,4 +49,5 @@ public class RankingService {
                 .sorted(Comparator.comparing(RankingEntity::getHits).reversed())
                 .collect(Collectors.toList());
     }
+
 }

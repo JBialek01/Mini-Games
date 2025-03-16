@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
+import java.util.Set;
 import java.util.UUID;
 
 @Document(collection = "winningNumbers")
@@ -14,18 +15,18 @@ public class WinningNumberEntity {
     @Id
     private String id;
     private LocalDate date;
-    private String winningNumbers;
+    private Set<Integer> winningNumbers;
 
     public WinningNumberEntity() {
     }
 
-    public WinningNumberEntity(LocalDate date, String winningNumbers) {
+    public WinningNumberEntity(LocalDate date, Set<Integer> winningNumbers) {
         this.date = date;
         this.winningNumbers = winningNumbers;
         this.id = UUID.randomUUID().toString();
     }
 
-    public WinningNumberEntity(String id, LocalDate date, String winningNumbers) {
+    public WinningNumberEntity(String id, LocalDate date, Set<Integer> winningNumbers) {
         this.id = id;
         this.date = date;
         this.winningNumbers = winningNumbers;
