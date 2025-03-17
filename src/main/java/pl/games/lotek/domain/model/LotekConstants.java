@@ -1,4 +1,4 @@
-package pl.games.lotek.core;
+package pl.games.lotek.domain.model;
 
 public final class LotekConstants {
     public static Integer LOWEST_NUMBER = 1;

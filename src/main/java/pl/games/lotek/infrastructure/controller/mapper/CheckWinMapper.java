@@ -12,10 +12,10 @@ public class CheckWinMapper {
         return previousDayResults.stream()
                 .map(checkWinEntity -> new CheckWinDto(
                                 checkWinEntity.getUserId(),
+                                checkWinEntity.getDate(),
                                 checkWinEntity.getUserNumbers(),
                                 checkWinEntity.getWinningNumbers(),
-                                checkWinEntity.getHits(),
-                                checkWinEntity.getDate()))
+                                checkWinEntity.getHits()))
                 .collect(Collectors.toList());
     }
 }

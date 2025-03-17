@@ -4,5 +4,5 @@ import java.time.LocalDate;
 import java.util.Set;
 
 
-public record CheckWinDto(String userId, Set<Integer> userNumbers, Set<Integer> winningNumbers, Integer hits, LocalDate date) {
+public record CheckWinDto(String userId, LocalDate date, Set<Integer> userNumbers, Set<Integer> winningNumbers, Integer hits) {
     }

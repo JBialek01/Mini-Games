@@ -1,11 +1,15 @@
 package pl.games.lotek.domain.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
+import pl.games.auth.AuthenticatedUserService;
 import pl.games.lotek.domain.model.CheckWinEntity;
 import pl.games.lotek.domain.model.LotekTicketEntity;
 import pl.games.lotek.domain.model.WinningNumberEntity;
 import pl.games.lotek.domain.repository.*;
+import pl.games.lotek.infrastructure.controller.dto.CheckWinDto;
+import pl.games.lotek.infrastructure.controller.mapper.CheckWinMapper;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,9 +19,17 @@ import java.util.Set;
 @AllArgsConstructor
 public class CheckWinService {
 
+    private final AuthenticatedUserService authenticatedUserService;
     private final CheckWinRepository checkWinRepository;
     private final LotekRepository lotekRepository;
     private final WinningNumberRepository winningNumberRepository;
+
+    public List<CheckWinDto> getCheckWinResults(OAuth2User user) {
+        String userId = authenticatedUserService.getAuthenticatedUserId(user);
+        checkAndSaveResults(userId);
+        List<CheckWinEntity> previousDayResults = checkWinRepository.findByUserIdAndDate(userId, LocalDate.now().minusDays(1));
+        return CheckWinMapper.mapToCheckWin(previousDayResults);
+    }
 
     public void checkAndSaveResults(String userId) {
         LocalDate previousDay = LocalDate.now().minusDays(1);
@@ -26,14 +38,15 @@ public class CheckWinService {
             return;
         }
         WinningNumberEntity winningNumbersEntity = winningNumberRepository.findByDate(previousDay);
-
+        if (winningNumbersEntity == null) {
+            return;
+        }
         Set<Integer> winningNumbers = winningNumbersEntity.getWinningNumbers();
 
         for (LotekTicketEntity ticket : userTickets) {
-            // Sprawdzenie, czy wynik już istnieje
-            boolean alreadyExists = !checkWinRepository.findByUserIdAndUserNumbersIdAndDate(userId, ticket.getId(), previousDay).isEmpty();
+            boolean alreadyExists = checkWinRepository.existsByUserIdAndUserNumbersIdAndDate(userId, ticket.getId(), previousDay);
             if (alreadyExists) {
-                continue; // Jeśli wpis już istnieje, nie zapisujemy ponownie
+                continue;
             }
 
             Set<Integer> userNumbers = ticket.getUserNumbers();
@@ -51,3 +64,4 @@ public class CheckWinService {
         }
     }
 }
+

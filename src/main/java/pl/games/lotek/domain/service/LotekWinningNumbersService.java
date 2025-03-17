@@ -1,7 +1,7 @@
 package pl.games.lotek.domain.service;
 
 import org.springframework.stereotype.Service;
-import pl.games.lotek.core.LotekConstants;
+import pl.games.lotek.domain.model.LotekConstants;
 import pl.games.lotek.domain.model.WinningNumberEntity;
 import pl.games.lotek.domain.repository.WinningNumberRepository;
 

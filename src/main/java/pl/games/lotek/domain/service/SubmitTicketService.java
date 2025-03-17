@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import pl.games.auth.AuthenticatedUserService;
-import pl.games.lotek.core.LotekConstants;
+import pl.games.lotek.domain.model.LotekConstants;
 import pl.games.lotek.domain.model.LotekTicketEntity;
 import pl.games.lotek.domain.repository.LotekRepository;
 import pl.games.lotek.infrastructure.controller.LotekUserNumberWebProvider;
