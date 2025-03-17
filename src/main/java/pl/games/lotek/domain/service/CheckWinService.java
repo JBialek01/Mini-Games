@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import pl.games.auth.AuthenticatedUserService;
 import pl.games.lotek.domain.model.CheckWinEntity;
 import pl.games.lotek.domain.model.LotekTicketEntity;
-import pl.games.lotek.domain.model.WinningNumberEntity;
 import pl.games.lotek.domain.repository.*;
 import pl.games.lotek.infrastructure.controller.dto.CheckWinDto;
 import pl.games.lotek.infrastructure.controller.mapper.CheckWinMapper;
@@ -20,9 +19,9 @@ import java.util.Set;
 public class CheckWinService {
 
     private final AuthenticatedUserService authenticatedUserService;
+    private final LotekWinningNumbersService lotekWinningNumbersService;
     private final CheckWinRepository checkWinRepository;
     private final LotekRepository lotekRepository;
-    private final WinningNumberRepository winningNumberRepository;
 
     public List<CheckWinDto> getCheckWinResults(OAuth2User user) {
         String userId = authenticatedUserService.getAuthenticatedUserId(user);
@@ -33,15 +32,9 @@ public class CheckWinService {
 
     public void checkAndSaveResults(String userId) {
         LocalDate previousDay = LocalDate.now().minusDays(1);
+        Set<Integer> winningNumbers = lotekWinningNumbersService.getWinningNumbersForYesterday();
+
         List<LotekTicketEntity> userTickets = lotekRepository.findByUserIdAndDate(userId, previousDay);
-        if (userTickets.isEmpty()) {
-            return;
-        }
-        WinningNumberEntity winningNumbersEntity = winningNumberRepository.findByDate(previousDay);
-        if (winningNumbersEntity == null) {
-            return;
-        }
-        Set<Integer> winningNumbers = winningNumbersEntity.getWinningNumbers();
 
         for (LotekTicketEntity ticket : userTickets) {
             boolean alreadyExists = checkWinRepository.existsByUserIdAndUserNumbersIdAndDate(userId, ticket.getId(), previousDay);
@@ -57,7 +50,7 @@ public class CheckWinService {
                     ticket.getId(),
                     ticket.getUserNumbers(),
                     previousDay,
-                    winningNumbersEntity.getWinningNumbers(),
+                    winningNumbers,
                     (int) hits
             );
             checkWinRepository.save(result);

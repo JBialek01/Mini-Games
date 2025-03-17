@@ -22,11 +22,9 @@ public class LotekWinningNumbersService {
     public Set<Integer> getWinningNumbersForYesterday() {
         LocalDate yesterday = LocalDate.now().minusDays(1);
         WinningNumberEntity existingRecord = winningNumberRepository.findByDate(yesterday);
-
         if (existingRecord != null) {
             return existingRecord.getWinningNumbers();
         }
-
         Set<Integer> newWinningNumbers = generateWinningNumbers();
         WinningNumberEntity newEntry = new WinningNumberEntity(yesterday, newWinningNumbers);
         winningNumberRepository.save(newEntry);
@@ -38,14 +36,6 @@ public class LotekWinningNumbersService {
         Set<Integer> numbers = new TreeSet<>();
         while (numbers.size() < LotekConstants.NUMBERS_COUNT) {
             numbers.add(rand.nextInt(LotekConstants.LOWEST_NUMBER, LotekConstants.HIGHEST_NUMBER));
-        }
-        return numbers;
-    }
-
-    private Set<Integer> parseNumbers(String numbersString) {
-        Set<Integer> numbers = new TreeSet<>();
-        for (String num : numbersString.replace("[", "").replace("]", "").split(", ")) {
-            numbers.add(Integer.parseInt(num));
         }
         return numbers;
     }
