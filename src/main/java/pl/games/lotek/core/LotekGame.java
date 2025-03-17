@@ -8,7 +8,7 @@
 //import pl.games.app.core.UserNumbersProvider;
 //import pl.games.lotek.repository.LotekTicketEntity;
 //import pl.games.lotek.repository.LotekRepository;
-//import pl.games.lotek.web.LotekUserNumberWebProvider;
+//import pl.games.lotek.infrastructure.controller.LotekUserNumberWebProvider;
 //
 //import java.time.LocalDate;
 //import java.time.LocalDateTime;

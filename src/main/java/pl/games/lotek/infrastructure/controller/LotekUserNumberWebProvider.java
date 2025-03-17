@@ -1,4 +1,4 @@
-package pl.games.lotek.web;
+package pl.games.lotek.infrastructure.controller;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;

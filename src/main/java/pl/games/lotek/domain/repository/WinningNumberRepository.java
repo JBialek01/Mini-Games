@@ -1,6 +1,7 @@
-package pl.games.lotek.repository;
+package pl.games.lotek.domain.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
+import pl.games.lotek.domain.model.WinningNumberEntity;
 
 import java.time.LocalDate;
 

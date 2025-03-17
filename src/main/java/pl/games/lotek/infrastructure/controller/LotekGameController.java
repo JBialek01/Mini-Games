@@ -1,4 +1,4 @@
-package pl.games.lotek.web;
+package pl.games.lotek.infrastructure.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Scope;
@@ -6,11 +6,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
-import pl.games.lotek.core.*;
-import pl.games.lotek.repository.CheckWinEntity;
-import pl.games.lotek.repository.LotekTicketEntity;
+import pl.games.lotek.domain.service.LotekGameService;
+import pl.games.lotek.infrastructure.controller.dto.CheckWinDto;
+import pl.games.lotek.infrastructure.controller.dto.LotekTicketDto;
+import pl.games.lotek.infrastructure.controller.dto.RankingDto;
+import pl.games.lotek.infrastructure.controller.dto.TicketSubmissionDto;
 import org.springframework.http.ResponseEntity;
-import pl.games.lotek.repository.RankingEntity;
 
 import java.util.List;
 import java.util.Set;
@@ -37,18 +38,18 @@ public class LotekGameController {
     }
 
     @GetMapping("/checkWin")
-    public List<CheckWinEntity> checkWinResults(@AuthenticationPrincipal OAuth2User user) {
+    public List<CheckWinDto> checkWinResults(@AuthenticationPrincipal OAuth2User user) {
         return lotekGameService.checkWin(user);
     }
 
     @GetMapping("/lotekGameHistory")
-    public ResponseEntity<List<LotekTicketEntity>> fetchGameHistoryForAllUsers(){
+    public ResponseEntity<List<LotekTicketDto>> fetchGameHistoryForAllUsers(){
         return lotekGameService.showAllTickets();
     }
 
     @GetMapping("/ranking")
     public
-    ResponseEntity<List<RankingEntity>> getRanking() {
+    ResponseEntity<List<RankingDto>> getRanking() {
         return lotekGameService.getRanking();
     }
 }

@@ -1,11 +1,10 @@
-package pl.games.lotek.repository;
+package pl.games.lotek.domain.model;
 
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 

@@ -1,8 +1,13 @@
-package pl.games.lotek.core;
+package pl.games.lotek.domain.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.games.lotek.repository.*;
+import pl.games.lotek.domain.model.CheckWinEntity;
+import pl.games.lotek.domain.model.LotekTicketEntity;
+import pl.games.lotek.domain.model.RankingEntity;
+import pl.games.lotek.domain.repository.*;
+import pl.games.lotek.infrastructure.controller.dto.RankingDto;
+import pl.games.lotek.infrastructure.controller.mapper.RankingMapper;
 
 import java.time.LocalDate;
 import java.util.Comparator;
@@ -20,9 +25,9 @@ public class RankingService {
     private final LotekRepository lotekRepository;
     private final CheckWinService checkWinService;
 
-    public List<RankingEntity> generateRanking() {
-        LocalDate previousDay = LocalDate.now().minusDays(1);
+    public List<RankingDto> generateRanking() {
 
+        LocalDate previousDay = LocalDate.now().minusDays(1);
         List<LotekTicketEntity> userTickets = lotekRepository.findByDate(previousDay);
         Set<String> userIds = userTickets.stream().map(LotekTicketEntity::getUserId).collect(Collectors.toSet());
 
@@ -31,7 +36,6 @@ public class RankingService {
         }
 
         List<CheckWinEntity> previousDayResults = checkWinRepository.findByDate(previousDay);
-        List<CheckWin> checkWins = CheckWinMapper.mapToCheckWin(previousDayResults);
 
         Map<String, Integer> userBestHits = previousDayResults.stream()
                 .collect(Collectors.toMap(
@@ -45,9 +49,10 @@ public class RankingService {
                 .collect(Collectors.toList());
 
         rankingRepository.saveAll(ranking);
-        return rankingRepository.findByDate(previousDay).stream()
+        List<RankingEntity> rankingList = rankingRepository.findByDate(previousDay).stream()
                 .sorted(Comparator.comparing(RankingEntity::getHits).reversed())
                 .collect(Collectors.toList());
+        return RankingMapper.mapToRankingDto(rankingList);
     }
 
 }

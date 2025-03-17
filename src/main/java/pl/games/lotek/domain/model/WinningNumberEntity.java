@@ -1,4 +1,4 @@
-package pl.games.lotek.repository;
+package pl.games.lotek.domain.model;
 
 import lombok.Getter;
 import org.springframework.data.annotation.Id;

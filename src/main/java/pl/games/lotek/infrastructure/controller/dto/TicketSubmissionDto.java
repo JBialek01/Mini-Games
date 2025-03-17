@@ -1,4 +1,4 @@
-package pl.games.lotek.core;
+package pl.games.lotek.infrastructure.controller.dto;
 
 import java.util.Set;
 

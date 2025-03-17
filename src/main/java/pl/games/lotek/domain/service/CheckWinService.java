@@ -1,13 +1,15 @@
-package pl.games.lotek.core;
+package pl.games.lotek.domain.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.games.lotek.repository.*;
+import pl.games.lotek.domain.model.CheckWinEntity;
+import pl.games.lotek.domain.model.LotekTicketEntity;
+import pl.games.lotek.domain.model.WinningNumberEntity;
+import pl.games.lotek.domain.repository.*;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor

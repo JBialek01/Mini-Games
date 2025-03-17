@@ -2,7 +2,6 @@ package pl.games.guessnumber.web;
 
 import pl.games.app.core.UserNumbersProvider;
 import pl.games.guessnumber.core.GuessNumber;
-import pl.games.guessnumber.core.WinChecker;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;

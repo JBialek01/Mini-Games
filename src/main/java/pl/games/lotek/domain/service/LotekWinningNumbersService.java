@@ -1,8 +1,9 @@
-package pl.games.lotek.core;
+package pl.games.lotek.domain.service;
 
 import org.springframework.stereotype.Service;
-import pl.games.lotek.repository.WinningNumberEntity;
-import pl.games.lotek.repository.WinningNumberRepository;
+import pl.games.lotek.core.LotekConstants;
+import pl.games.lotek.domain.model.WinningNumberEntity;
+import pl.games.lotek.domain.repository.WinningNumberRepository;
 
 import java.time.LocalDate;
 import java.util.Random;

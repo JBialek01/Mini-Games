@@ -1,6 +1,5 @@
 package pl.games.guessnumber.core;
 
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 import pl.games.app.core.Game;

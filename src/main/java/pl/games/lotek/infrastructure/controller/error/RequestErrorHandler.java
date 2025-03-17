@@ -1,4 +1,4 @@
-package pl.games.lotek.web.error;
+package pl.games.lotek.infrastructure.controller.error;
 
 
 import lombok.extern.log4j.Log4j2;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import pl.games.lotek.web.LotekGameController;
+import pl.games.lotek.infrastructure.controller.LotekGameController;
 
 @ControllerAdvice(assignableTypes = LotekGameController.class)
 @Log4j2

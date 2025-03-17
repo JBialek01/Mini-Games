@@ -1,4 +1,4 @@
-package pl.games.lotek.web.error;
+package pl.games.lotek.infrastructure.controller.error;
 
 public class UserGaveDifferentNumberCountThanSix extends RuntimeException {
     public UserGaveDifferentNumberCountThanSix(String message) {

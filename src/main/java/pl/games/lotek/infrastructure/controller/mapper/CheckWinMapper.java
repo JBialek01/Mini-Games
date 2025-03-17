@@ -1,15 +1,16 @@
-package pl.games.lotek.core;
+package pl.games.lotek.infrastructure.controller.mapper;
 
-import pl.games.lotek.repository.CheckWinEntity;
+import pl.games.lotek.infrastructure.controller.dto.CheckWinDto;
+import pl.games.lotek.domain.model.CheckWinEntity;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class CheckWinMapper {
 
-    public static List<CheckWin> mapToCheckWin(List<CheckWinEntity> previousDayResults) {
+    public static List<CheckWinDto> mapToCheckWin(List<CheckWinEntity> previousDayResults) {
         return previousDayResults.stream()
-                .map(checkWinEntity -> new CheckWin(
+                .map(checkWinEntity -> new CheckWinDto(
                                 checkWinEntity.getUserId(),
                                 checkWinEntity.getUserNumbers(),
                                 checkWinEntity.getWinningNumbers(),
