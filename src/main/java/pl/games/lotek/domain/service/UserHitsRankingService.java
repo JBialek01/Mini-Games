@@ -10,6 +10,7 @@ import pl.games.lotek.infrastructure.controller.dto.UserHitsRankingDto;
 import pl.games.lotek.infrastructure.controller.mapper.UserHitsRankingMapper;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -25,8 +26,12 @@ public class UserHitsRankingService {
     private final LotekTicketRepository lotekTicketRepository;
     private final CheckWinService checkWinService;
 
-    public List<UserHitsRankingDto> generateRanking() {
+    public List<UserHitsRankingDto> getRanking() {
+        List<UserHitsRankingEntity> ranking = generateRanking();
+        return UserHitsRankingMapper.mapToRankingDto(ranking);
+    }
 
+    List<UserHitsRankingEntity> generateRanking() {
         LocalDate previousDay = LocalDate.now().minusDays(1);
         List<LotekTicketEntity> userTickets = lotekTicketRepository.findByDate(previousDay);
         Set<String> userIds = userTickets.stream().map(LotekTicketEntity::getUserId).collect(Collectors.toSet());
@@ -43,16 +48,17 @@ public class UserHitsRankingService {
                         CheckWinEntity::getHits,
                         (existing, replacement) -> existing > replacement ? existing : replacement));
 
+        LocalDateTime previousDay2 = LocalDateTime.now().minusDays(1);
         List<UserHitsRankingEntity> ranking = userBestHits.entrySet().stream()
                 .filter(entry -> userHitsRankingRepository.findByDateAndUserId(previousDay, entry.getKey()).isEmpty())
-                .map(entry -> new UserHitsRankingEntity(previousDay, entry.getValue(), entry.getKey()))
+                .map(entry -> new UserHitsRankingEntity(previousDay2, entry.getValue(), entry.getKey()))
                 .collect(Collectors.toList());
 
         userHitsRankingRepository.saveAll(ranking);
-        List<UserHitsRankingEntity> rankingList = userHitsRankingRepository.findByDate(previousDay).stream()
+
+        return userHitsRankingRepository.findByDate(previousDay).stream()
                 .sorted(Comparator.comparing(UserHitsRankingEntity::getHits).reversed())
                 .collect(Collectors.toList());
-        return UserHitsRankingMapper.mapToRankingDto(rankingList);
     }
 
 }

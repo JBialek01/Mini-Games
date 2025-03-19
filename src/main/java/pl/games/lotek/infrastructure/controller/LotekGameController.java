@@ -6,8 +6,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
+import pl.games.lotek.domain.model.UserHitsRankingEntity;
 import pl.games.lotek.domain.service.LotekGameService;
 import pl.games.lotek.domain.service.LotekUserNumberWebProvider;
+import pl.games.lotek.domain.service.UserHitsRankingService;
 import pl.games.lotek.infrastructure.controller.dto.CheckWinDto;
 import pl.games.lotek.infrastructure.controller.dto.LotekTicketDto;
 import pl.games.lotek.infrastructure.controller.dto.UserHitsRankingDto;
@@ -23,6 +25,7 @@ import java.util.Set;
 public class LotekGameController {
 
     private final LotekGameService lotekGameService;
+    private final UserHitsRankingService userHitsRankingService;
     private final LotekUserNumberWebProvider userNumbersProvider;
 
     @GetMapping("/lotekSubmitTicket")
@@ -49,8 +52,8 @@ public class LotekGameController {
     }
 
     @GetMapping("/ranking")
-    public
-    ResponseEntity<List<UserHitsRankingDto>> getRanking() {
-        return lotekGameService.getRanking();
+    public ResponseEntity<List<UserHitsRankingDto>> getRanking() {
+        List<UserHitsRankingDto> userHitsRankingEntities = userHitsRankingService.getRanking();
+        return ResponseEntity.ok(userHitsRankingEntities);
     }
 }
