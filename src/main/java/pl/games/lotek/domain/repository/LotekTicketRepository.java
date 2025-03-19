@@ -6,7 +6,7 @@ import pl.games.lotek.domain.model.LotekTicketEntity;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface LotekRepository extends MongoRepository<LotekTicketEntity, String> {
+public interface LotekTicketRepository extends MongoRepository<LotekTicketEntity, String> {
 
     LotekTicketEntity save(LotekTicketEntity lotekTicketEntity);
 

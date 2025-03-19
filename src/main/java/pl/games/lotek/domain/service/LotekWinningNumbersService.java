@@ -2,8 +2,8 @@ package pl.games.lotek.domain.service;
 
 import org.springframework.stereotype.Service;
 import pl.games.lotek.domain.model.LotekConstants;
-import pl.games.lotek.domain.model.WinningNumberEntity;
-import pl.games.lotek.domain.repository.WinningNumberRepository;
+import pl.games.lotek.domain.model.WinningNumbersEntity;
+import pl.games.lotek.domain.repository.WinningNumbersRepository;
 
 import java.time.LocalDate;
 import java.util.Random;
@@ -13,21 +13,21 @@ import java.util.TreeSet;
 @Service
 public class LotekWinningNumbersService {
 
-    private final WinningNumberRepository winningNumberRepository;
+    private final WinningNumbersRepository winningNumbersRepository;
 
-    public LotekWinningNumbersService(WinningNumberRepository winningNumberRepository) {
-        this.winningNumberRepository = winningNumberRepository;
+    public LotekWinningNumbersService(WinningNumbersRepository winningNumbersRepository) {
+        this.winningNumbersRepository = winningNumbersRepository;
     }
 
     public Set<Integer> getWinningNumbersForYesterday() {
         LocalDate yesterday = LocalDate.now().minusDays(1);
-        WinningNumberEntity existingRecord = winningNumberRepository.findByDate(yesterday);
+        WinningNumbersEntity existingRecord = winningNumbersRepository.findByDate(yesterday);
         if (existingRecord != null) {
             return existingRecord.getWinningNumbers();
         }
         Set<Integer> newWinningNumbers = generateWinningNumbers();
-        WinningNumberEntity newEntry = new WinningNumberEntity(yesterday, newWinningNumbers);
-        winningNumberRepository.save(newEntry);
+        WinningNumbersEntity newEntry = new WinningNumbersEntity(yesterday, newWinningNumbers);
+        winningNumbersRepository.save(newEntry);
         return newWinningNumbers;
     }
 

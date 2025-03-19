@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Document(collection = "ranking")
 @Getter
-public class RankingEntity {
+public class UserHitsRankingEntity {
 
     @Id
     private String id;
@@ -17,17 +17,17 @@ public class RankingEntity {
     private Integer hits;
     private String userId;
 
-    public RankingEntity() {
+    public UserHitsRankingEntity() {
     }
 
-    public RankingEntity(LocalDate date, Integer hits, String userId) {
+    public UserHitsRankingEntity(LocalDate date, Integer hits, String userId) {
         this.id = UUID.randomUUID().toString();
         this.date = date;
         this.hits = hits;
         this.userId = userId;
     }
 
-    public RankingEntity(String id, LocalDate date, Integer hits, String userId) {
+    public UserHitsRankingEntity(String id, LocalDate date, Integer hits, String userId) {
         this.id = id;
         this.date = date;
         this.hits = hits;

@@ -10,23 +10,23 @@ import java.util.UUID;
 
 @Document(collection = "winningNumbers")
 @Getter
-public class WinningNumberEntity {
+public class WinningNumbersEntity {
 
     @Id
     private String id;
     private LocalDate date;
     private Set<Integer> winningNumbers;
 
-    public WinningNumberEntity() {
+    public WinningNumbersEntity() {
     }
 
-    public WinningNumberEntity(LocalDate date, Set<Integer> winningNumbers) {
+    public WinningNumbersEntity(LocalDate date, Set<Integer> winningNumbers) {
         this.date = date;
         this.winningNumbers = winningNumbers;
         this.id = UUID.randomUUID().toString();
     }
 
-    public WinningNumberEntity(String id, LocalDate date, Set<Integer> winningNumbers) {
+    public WinningNumbersEntity(String id, LocalDate date, Set<Integer> winningNumbers) {
         this.id = id;
         this.date = date;
         this.winningNumbers = winningNumbers;

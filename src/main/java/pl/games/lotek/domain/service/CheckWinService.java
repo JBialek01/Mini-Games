@@ -1,7 +1,6 @@
 package pl.games.lotek.domain.service;
 
 import lombok.AllArgsConstructor;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import pl.games.auth.AuthenticatedUserService;
 import pl.games.lotek.domain.model.CheckWinEntity;
@@ -21,10 +20,9 @@ public class CheckWinService {
     private final AuthenticatedUserService authenticatedUserService;
     private final LotekWinningNumbersService lotekWinningNumbersService;
     private final CheckWinRepository checkWinRepository;
-    private final LotekRepository lotekRepository;
+    private final LotekTicketRepository lotekTicketRepository;
 
-    public List<CheckWinDto> getCheckWinResults(OAuth2User user) {
-        String userId = authenticatedUserService.getAuthenticatedUserId(user);
+    public List<CheckWinDto> getCheckWinResults(String userId) {
         checkAndSaveResults(userId);
         List<CheckWinEntity> previousDayResults = checkWinRepository.findByUserIdAndDate(userId, LocalDate.now().minusDays(1));
         return CheckWinMapper.mapToCheckWin(previousDayResults);
@@ -34,7 +32,7 @@ public class CheckWinService {
         LocalDate previousDay = LocalDate.now().minusDays(1);
         Set<Integer> winningNumbers = lotekWinningNumbersService.getWinningNumbersForYesterday();
 
-        List<LotekTicketEntity> userTickets = lotekRepository.findByUserIdAndDate(userId, previousDay);
+        List<LotekTicketEntity> userTickets = lotekTicketRepository.findByUserIdAndDate(userId, previousDay);
 
         for (LotekTicketEntity ticket : userTickets) {
             boolean alreadyExists = checkWinRepository.existsByUserIdAndUserNumbersIdAndDate(userId, ticket.getId(), previousDay);

@@ -7,9 +7,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 import pl.games.lotek.domain.service.LotekGameService;
+import pl.games.lotek.domain.service.LotekUserNumberWebProvider;
 import pl.games.lotek.infrastructure.controller.dto.CheckWinDto;
 import pl.games.lotek.infrastructure.controller.dto.LotekTicketDto;
-import pl.games.lotek.infrastructure.controller.dto.RankingDto;
+import pl.games.lotek.infrastructure.controller.dto.UserHitsRankingDto;
 import pl.games.lotek.infrastructure.controller.dto.TicketSubmissionDto;
 import org.springframework.http.ResponseEntity;
 
@@ -49,7 +50,7 @@ public class LotekGameController {
 
     @GetMapping("/ranking")
     public
-    ResponseEntity<List<RankingDto>> getRanking() {
+    ResponseEntity<List<UserHitsRankingDto>> getRanking() {
         return lotekGameService.getRanking();
     }
 }

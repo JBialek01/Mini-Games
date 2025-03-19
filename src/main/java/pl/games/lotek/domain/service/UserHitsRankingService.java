@@ -4,10 +4,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.games.lotek.domain.model.CheckWinEntity;
 import pl.games.lotek.domain.model.LotekTicketEntity;
-import pl.games.lotek.domain.model.RankingEntity;
+import pl.games.lotek.domain.model.UserHitsRankingEntity;
 import pl.games.lotek.domain.repository.*;
-import pl.games.lotek.infrastructure.controller.dto.RankingDto;
-import pl.games.lotek.infrastructure.controller.mapper.RankingMapper;
+import pl.games.lotek.infrastructure.controller.dto.UserHitsRankingDto;
+import pl.games.lotek.infrastructure.controller.mapper.UserHitsRankingMapper;
 
 import java.time.LocalDate;
 import java.util.Comparator;
@@ -18,17 +18,17 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class RankingService {
+public class UserHitsRankingService {
 
     private final CheckWinRepository checkWinRepository;
-    private final RankingRepository rankingRepository;
-    private final LotekRepository lotekRepository;
+    private final UserHitsRankingRepository userHitsRankingRepository;
+    private final LotekTicketRepository lotekTicketRepository;
     private final CheckWinService checkWinService;
 
-    public List<RankingDto> generateRanking() {
+    public List<UserHitsRankingDto> generateRanking() {
 
         LocalDate previousDay = LocalDate.now().minusDays(1);
-        List<LotekTicketEntity> userTickets = lotekRepository.findByDate(previousDay);
+        List<LotekTicketEntity> userTickets = lotekTicketRepository.findByDate(previousDay);
         Set<String> userIds = userTickets.stream().map(LotekTicketEntity::getUserId).collect(Collectors.toSet());
 
         for (String userId : userIds) {
@@ -43,16 +43,16 @@ public class RankingService {
                         CheckWinEntity::getHits,
                         (existing, replacement) -> existing > replacement ? existing : replacement));
 
-        List<RankingEntity> ranking = userBestHits.entrySet().stream()
-                .filter(entry -> rankingRepository.findByDateAndUserId(previousDay, entry.getKey()).isEmpty())
-                .map(entry -> new RankingEntity(previousDay, entry.getValue(), entry.getKey()))
+        List<UserHitsRankingEntity> ranking = userBestHits.entrySet().stream()
+                .filter(entry -> userHitsRankingRepository.findByDateAndUserId(previousDay, entry.getKey()).isEmpty())
+                .map(entry -> new UserHitsRankingEntity(previousDay, entry.getValue(), entry.getKey()))
                 .collect(Collectors.toList());
 
-        rankingRepository.saveAll(ranking);
-        List<RankingEntity> rankingList = rankingRepository.findByDate(previousDay).stream()
-                .sorted(Comparator.comparing(RankingEntity::getHits).reversed())
+        userHitsRankingRepository.saveAll(ranking);
+        List<UserHitsRankingEntity> rankingList = userHitsRankingRepository.findByDate(previousDay).stream()
+                .sorted(Comparator.comparing(UserHitsRankingEntity::getHits).reversed())
                 .collect(Collectors.toList());
-        return RankingMapper.mapToRankingDto(rankingList);
+        return UserHitsRankingMapper.mapToRankingDto(rankingList);
     }
 
 }
