@@ -27,13 +27,6 @@ public class UserHitsRankingEntity {
         this.userId = userId;
     }
 
-//    public UserHitsRankingEntity(String id, LocalDateTime date, Integer hits, String userId) {
-//        this.id = id;
-//        this.date = date;
-//        this.hits = hits;
-//        this.userId = userId;
-//    }
-
     public ZonedDateTime getDate() {
         return ZonedDateTime.ofInstant(date, ZoneId.systemDefault());
     }

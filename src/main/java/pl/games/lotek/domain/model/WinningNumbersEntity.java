@@ -4,7 +4,7 @@ import lombok.Getter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDate;
+import java.time.*;
 import java.util.Set;
 import java.util.UUID;
 
@@ -14,21 +14,19 @@ public class WinningNumbersEntity {
 
     @Id
     private String id;
-    private LocalDate date;
+    private Instant date;
     private Set<Integer> winningNumbers;
 
     public WinningNumbersEntity() {
     }
 
-    public WinningNumbersEntity(LocalDate date, Set<Integer> winningNumbers) {
-        this.date = date;
+    public WinningNumbersEntity(LocalDateTime date, Set<Integer> winningNumbers) {
+        this.date = date.toInstant(ZoneOffset.UTC);
         this.winningNumbers = winningNumbers;
         this.id = UUID.randomUUID().toString();
     }
 
-    public WinningNumbersEntity(String id, LocalDate date, Set<Integer> winningNumbers) {
-        this.id = id;
-        this.date = date;
-        this.winningNumbers = winningNumbers;
+    public ZonedDateTime getDate() {
+        return ZonedDateTime.ofInstant(date, ZoneId.systemDefault());
     }
 }
