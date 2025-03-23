@@ -6,10 +6,8 @@ import pl.games.auth.AuthenticatedUserService;
 import pl.games.lotek.domain.model.CheckWinEntity;
 import pl.games.lotek.domain.model.LotekTicketEntity;
 import pl.games.lotek.domain.repository.*;
-import pl.games.lotek.infrastructure.controller.dto.CheckWinDto;
-import pl.games.lotek.infrastructure.controller.mapper.CheckWinMapper;
 
-import java.time.LocalDate;
+import java.time.*;
 import java.util.List;
 import java.util.Set;
 
@@ -22,20 +20,22 @@ public class CheckWinService {
     private final CheckWinRepository checkWinRepository;
     private final LotekTicketRepository lotekTicketRepository;
 
-    public List<CheckWinDto> getCheckWinResults(String userId) {
+    public List<CheckWinEntity> getCheckWinResults(String userId) {
         checkAndSaveResults(userId);
-        List<CheckWinEntity> previousDayResults = checkWinRepository.findByUserIdAndDate(userId, LocalDate.now().minusDays(1));
-        return CheckWinMapper.mapToCheckWin(previousDayResults);
+        Instant startOfPreviousDay = LocalDate.now().minusDays(1).atStartOfDay(ZoneOffset.UTC).toInstant();
+        Instant endOfPreviousDay = LocalDate.now().minusDays(1).atTime(23, 59, 59,  999999999).atZone(ZoneOffset.UTC).toInstant();
+        return checkWinRepository.findByUserIdAndDateBetween(userId, startOfPreviousDay, endOfPreviousDay);
     }
 
     public void checkAndSaveResults(String userId) {
-        LocalDate previousDay = LocalDate.now().minusDays(1);
+        Instant startOfPreviousDay = LocalDate.now().minusDays(1).atStartOfDay(ZoneOffset.UTC).toInstant();
+        Instant endOfPreviousDay = LocalDate.now().minusDays(1).atTime(23, 59, 59,  999999999).atZone(ZoneOffset.UTC).toInstant();
         Set<Integer> winningNumbers = lotekWinningNumbersService.getWinningNumbersForYesterday();
 
-        List<LotekTicketEntity> userTickets = lotekTicketRepository.findByUserIdAndDate(userId, previousDay);
+        List<LotekTicketEntity> userTickets = lotekTicketRepository.findByUserIdAndDateBetween(userId, startOfPreviousDay, endOfPreviousDay);
 
         for (LotekTicketEntity ticket : userTickets) {
-            boolean alreadyExists = checkWinRepository.existsByUserIdAndUserNumbersIdAndDate(userId, ticket.getId(), previousDay);
+            boolean alreadyExists = checkWinRepository.existsByUserIdAndUserNumbersId(userId, ticket.getId());
             if (alreadyExists) {
                 continue;
             }
@@ -47,7 +47,7 @@ public class CheckWinService {
                     userId,
                     ticket.getId(),
                     ticket.getUserNumbers(),
-                    previousDay,
+                    ticket.getDate().toLocalDateTime(),
                     winningNumbers,
                     (int) hits
             );

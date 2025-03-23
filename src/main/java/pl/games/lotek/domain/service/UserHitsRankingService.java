@@ -9,7 +9,7 @@ import pl.games.lotek.domain.repository.*;
 import pl.games.lotek.infrastructure.controller.dto.UserHitsRankingDto;
 import pl.games.lotek.infrastructure.controller.mapper.UserHitsRankingMapper;
 
-import java.time.LocalDate;
+import java.time.*;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -25,17 +25,19 @@ public class UserHitsRankingService {
     private final LotekTicketRepository lotekTicketRepository;
     private final CheckWinService checkWinService;
 
-    public List<UserHitsRankingDto> generateRanking() {
 
-        LocalDate previousDay = LocalDate.now().minusDays(1);
-        List<LotekTicketEntity> userTickets = lotekTicketRepository.findByDate(previousDay);
+    public List<UserHitsRankingEntity> generateRanking() {
+        Instant startOfPreviousDay = LocalDate.now().minusDays(1).atStartOfDay(ZoneOffset.UTC).toInstant();
+        Instant endOfPreviousDay = LocalDate.now().minusDays(1).atTime(23, 59, 59,  999999999).atZone(ZoneOffset.UTC).toInstant();
+
+        List<LotekTicketEntity> userTickets = lotekTicketRepository.findByDateBetween(startOfPreviousDay, endOfPreviousDay);
         Set<String> userIds = userTickets.stream().map(LotekTicketEntity::getUserId).collect(Collectors.toSet());
 
         for (String userId : userIds) {
             checkWinService.checkAndSaveResults(userId);
         }
 
-        List<CheckWinEntity> previousDayResults = checkWinRepository.findByDate(previousDay);
+        List<CheckWinEntity> previousDayResults = checkWinRepository.findByDateBetween(startOfPreviousDay, endOfPreviousDay);
 
         Map<String, Integer> userBestHits = previousDayResults.stream()
                 .collect(Collectors.toMap(
@@ -44,15 +46,15 @@ public class UserHitsRankingService {
                         (existing, replacement) -> existing > replacement ? existing : replacement));
 
         List<UserHitsRankingEntity> ranking = userBestHits.entrySet().stream()
-                .filter(entry -> userHitsRankingRepository.findByDateAndUserId(previousDay, entry.getKey()).isEmpty())
-                .map(entry -> new UserHitsRankingEntity(previousDay, entry.getValue(), entry.getKey()))
+                .filter(entry -> userHitsRankingRepository.findByDateBetweenAndUserId(startOfPreviousDay, endOfPreviousDay, entry.getKey()).isEmpty())
+                .map(entry -> new UserHitsRankingEntity(LocalDateTime.now().minusDays(1), entry.getValue(), entry.getKey()))
                 .collect(Collectors.toList());
 
         userHitsRankingRepository.saveAll(ranking);
-        List<UserHitsRankingEntity> rankingList = userHitsRankingRepository.findByDate(previousDay).stream()
+
+        return userHitsRankingRepository.findByDateBetween(startOfPreviousDay, endOfPreviousDay).stream()
                 .sorted(Comparator.comparing(UserHitsRankingEntity::getHits).reversed())
                 .collect(Collectors.toList());
-        return UserHitsRankingMapper.mapToRankingDto(rankingList);
     }
 
 }

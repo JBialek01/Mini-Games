@@ -8,7 +8,7 @@ import pl.games.lotek.domain.repository.LotekTicketRepository;
 import pl.games.lotek.infrastructure.controller.dto.TicketSubmissionDto;
 import pl.games.lotek.infrastructure.controller.error.UserGaveNumberOutsideTheRange;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Service
@@ -25,7 +25,7 @@ public class SubmitTicketService {
                 throw new UserGaveNumberOutsideTheRange("Podane liczby muszą być w zakresie 1-99!");
             }
         }
-        LotekTicketEntity lotekTicketEntity = new LotekTicketEntity(userId, userNumbers, LocalDate.now());
+        LotekTicketEntity lotekTicketEntity = new LotekTicketEntity(userId, userNumbers, LocalDateTime.now());
         lotekTicketRepository.save(lotekTicketEntity);
         return new TicketSubmissionDto(userNumbers, "Los zapisany!");
     }

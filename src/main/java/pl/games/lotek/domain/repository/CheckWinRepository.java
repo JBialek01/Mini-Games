@@ -3,11 +3,12 @@ package pl.games.lotek.domain.repository;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import pl.games.lotek.domain.model.CheckWinEntity;
 
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.List;
 
 public interface CheckWinRepository extends MongoRepository<CheckWinEntity, String> {
-    List<CheckWinEntity> findByUserIdAndDate(String userId, LocalDate date);
-    List<CheckWinEntity> findByDate(LocalDate date);
-    boolean existsByUserIdAndUserNumbersIdAndDate(String userId, String id, LocalDate previousDay);
+
+    boolean existsByUserIdAndUserNumbersId(String userId, String userNumbersId);
+    List<CheckWinEntity> findByUserIdAndDateBetween(String userId, Instant start, Instant end);
+    List<CheckWinEntity> findByDateBetween(Instant startOfPreviousDay, Instant endOfPreviousDay);
 }
