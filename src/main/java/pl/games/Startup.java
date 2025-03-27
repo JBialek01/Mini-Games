@@ -10,6 +10,7 @@ import pl.games.lotek.domain.repository.UserHitsRankingRepository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Component
@@ -23,8 +24,7 @@ public class Startup implements
     public void onApplicationEvent(ContextRefreshedEvent event) {
         System.out.println("add test data");
         List<UserHitsRankingEntity> userHitsRankingEntities = List.of(
-                new UserHitsRankingEntity(LocalDateTime.of(2025, 3, 1, 12, 0, 0,0), 5, "55"),
-                new UserHitsRankingEntity(LocalDateTime.now(ZoneId.of("UTC")), 5, "1")
+                new UserHitsRankingEntity(ZonedDateTime.now(ZoneId.of("UTC")), 5, "1")
 //                new UserHitsRankingEntity(LocalDate.of(2025, 1, 1), 5, "1"),
 //                new UserHitsRankingEntity(LocalDate.of(2023, 3, 1), 5, "1"),
 //                new UserHitsRankingEntity(LocalDate.of(2022, 1, 1), 4, "1"),

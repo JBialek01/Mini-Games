@@ -21,14 +21,18 @@ public class LotekTicketEntity {
     public LotekTicketEntity() {
     }
 
-    public LotekTicketEntity(String userId, Set<Integer> userNumbers, LocalDateTime date) {
+    public LotekTicketEntity(String userId, Set<Integer> userNumbers, Instant date) {
         this.userId = userId;
         this.userNumbers = userNumbers;
-        this.date = date.toInstant(ZoneOffset.UTC);
+        this.date = date;
         this.id = UUID.randomUUID().toString();
     }
 
     public ZonedDateTime getDate() {
         return ZonedDateTime.ofInstant(date, ZoneId.systemDefault());
+    }
+
+    public Instant getTimestamp() {
+        return date;
     }
 }
