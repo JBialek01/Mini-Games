@@ -20,9 +20,9 @@ public class UserHitsRankingEntity {
     public UserHitsRankingEntity() {
     }
 
-    public UserHitsRankingEntity(LocalDateTime date, Integer hits, String userId) {
+    public UserHitsRankingEntity(ZonedDateTime date, Integer hits, String userId) {
         this.id = UUID.randomUUID().toString();
-        this.date = date.toInstant(ZoneOffset.UTC);
+        this.date = date.toInstant();
         this.hits = hits;
         this.userId = userId;
     }

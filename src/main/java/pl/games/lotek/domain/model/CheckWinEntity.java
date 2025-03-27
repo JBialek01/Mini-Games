@@ -24,12 +24,12 @@ public class CheckWinEntity {
     public CheckWinEntity() {
     }
 
-    public CheckWinEntity(String userId, String userNumbersId, Set<Integer> userNumbers, LocalDateTime date, Set<Integer> winningNumbers, Integer hits) {
+    public CheckWinEntity(String userId, String userNumbersId, Set<Integer> userNumbers, Instant date, Set<Integer> winningNumbers, Integer hits) {
         this.id = UUID.randomUUID().toString();
         this.userId = userId;
         this.userNumbersId = userNumbersId;
         this.userNumbers = userNumbers;
-        this.date = date.toInstant(ZoneOffset.UTC);
+        this.date = date;
         this.winningNumbers = winningNumbers;
         this.hits = hits;
     }

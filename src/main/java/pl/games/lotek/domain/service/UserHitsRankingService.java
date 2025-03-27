@@ -6,8 +6,6 @@ import pl.games.lotek.domain.model.CheckWinEntity;
 import pl.games.lotek.domain.model.LotekTicketEntity;
 import pl.games.lotek.domain.model.UserHitsRankingEntity;
 import pl.games.lotek.domain.repository.*;
-import pl.games.lotek.infrastructure.controller.dto.UserHitsRankingDto;
-import pl.games.lotek.infrastructure.controller.mapper.UserHitsRankingMapper;
 
 import java.time.*;
 import java.util.Comparator;
@@ -27,34 +25,40 @@ public class UserHitsRankingService {
 
 
     public List<UserHitsRankingEntity> generateRanking() {
-        Instant startOfPreviousDay = LocalDate.now().minusDays(1).atStartOfDay(ZoneOffset.UTC).toInstant();
-        Instant endOfPreviousDay = LocalDate.now().minusDays(1).atTime(23, 59, 59,  999999999).atZone(ZoneOffset.UTC).toInstant();
-
-        List<LotekTicketEntity> userTickets = lotekTicketRepository.findByDateBetween(startOfPreviousDay, endOfPreviousDay);
-        Set<String> userIds = userTickets.stream().map(LotekTicketEntity::getUserId).collect(Collectors.toSet());
-
-        for (String userId : userIds) {
-            checkWinService.checkAndSaveResults(userId);
-        }
-
+        Instant startOfPreviousDay = TimeService.getStartOfPreviousUtcDay();
+        Instant endOfPreviousDay = TimeService.getEndOfPreviousUtcDay();
+        processUserTickets(startOfPreviousDay, endOfPreviousDay);
         List<CheckWinEntity> previousDayResults = checkWinRepository.findByDateBetween(startOfPreviousDay, endOfPreviousDay);
+        Map<String, Integer> userBestHits = calculateUserBestHits(previousDayResults);
+        saveNewRankingEntries(userBestHits, startOfPreviousDay, endOfPreviousDay);
+        return fetchSortedRanking(startOfPreviousDay, endOfPreviousDay);
+    }
 
-        Map<String, Integer> userBestHits = previousDayResults.stream()
+    private void processUserTickets(Instant start, Instant end) {
+        List<LotekTicketEntity> userTickets = lotekTicketRepository.findByDateBetween(start, end);
+        Set<String> userIds = userTickets.stream().map(LotekTicketEntity::getUserId).collect(Collectors.toSet());
+        userIds.forEach(checkWinService::checkAndSaveResults);
+    }
+
+    private Map<String, Integer> calculateUserBestHits(List<CheckWinEntity> results) {
+        return results.stream()
                 .collect(Collectors.toMap(
                         CheckWinEntity::getUserId,
                         CheckWinEntity::getHits,
-                        (existing, replacement) -> existing > replacement ? existing : replacement));
+                        Integer::max));
+    }
 
+    private void saveNewRankingEntries(Map<String, Integer> userBestHits, Instant start, Instant end) {
         List<UserHitsRankingEntity> ranking = userBestHits.entrySet().stream()
-                .filter(entry -> userHitsRankingRepository.findByDateBetweenAndUserId(startOfPreviousDay, endOfPreviousDay, entry.getKey()).isEmpty())
-                .map(entry -> new UserHitsRankingEntity(LocalDateTime.now().minusDays(1), entry.getValue(), entry.getKey()))
+                .filter(entry -> userHitsRankingRepository.findByDateBetweenAndUserId(start, end, entry.getKey()).isEmpty())
+                .map(entry -> new UserHitsRankingEntity(ZonedDateTime.now().minusDays(1), entry.getValue(), entry.getKey()))
                 .collect(Collectors.toList());
-
         userHitsRankingRepository.saveAll(ranking);
+    }
 
-        return userHitsRankingRepository.findByDateBetween(startOfPreviousDay, endOfPreviousDay).stream()
+    private List<UserHitsRankingEntity> fetchSortedRanking(Instant start, Instant end) {
+        return userHitsRankingRepository.findByDateBetween(start, end).stream()
                 .sorted(Comparator.comparing(UserHitsRankingEntity::getHits).reversed())
                 .collect(Collectors.toList());
     }
-
 }

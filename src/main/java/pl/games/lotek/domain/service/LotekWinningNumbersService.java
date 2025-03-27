@@ -24,8 +24,8 @@ public class LotekWinningNumbersService {
 
     public Set<Integer> getWinningNumbersForYesterday() {
         LocalDateTime yesterday = LocalDateTime.now().minusDays(1);
-        Instant startOfPreviousDay = LocalDate.now().minusDays(1).atStartOfDay(ZoneOffset.UTC).toInstant();
-        Instant endOfPreviousDay = LocalDate.now().minusDays(1).atTime(23, 59, 59,  999999999).atZone(ZoneOffset.UTC).toInstant();
+        Instant startOfPreviousDay = TimeService.getStartOfPreviousUtcDay();
+        Instant endOfPreviousDay = TimeService.getEndOfPreviousUtcDay();
         WinningNumbersEntity existingRecord = winningNumbersRepository.findByDateBetween(startOfPreviousDay, endOfPreviousDay);
         if (existingRecord != null) {
             return existingRecord.getWinningNumbers();
