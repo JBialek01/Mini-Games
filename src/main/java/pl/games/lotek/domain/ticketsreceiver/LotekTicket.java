@@ -1,4 +1,4 @@
-package pl.games.lotek.domain.numbersreceiver;
+package pl.games.lotek.domain.ticketsreceiver;
 
 import lombok.Getter;
 import org.springframework.data.annotation.Id;

@@ -24,7 +24,7 @@ class UsersHitsRankingGenerator {
     private final AllTicketsChecker allTicketsChecker;
 
 
-    List<UsersHitsRankingDto> generateRanking() {
+    List<UsersHitsRankingDto> generateRankingForPreviousDay() {
         Instant startOfPreviousDay = TimeService.getStartOfPreviousUtcDay();
         Instant endOfPreviousDay = TimeService.getEndOfPreviousUtcDay();
         allTicketsChecker.checkAllUsersTickets(startOfPreviousDay, endOfPreviousDay);
@@ -33,6 +33,12 @@ class UsersHitsRankingGenerator {
         rankingEntriesSaver.saveNewRankingEntries(userBestHits, startOfPreviousDay, endOfPreviousDay);
         List<UsersHitsRanking> ranking = fetchSortedRanking(startOfPreviousDay, endOfPreviousDay);
         return UsersHitsRankingMapper.mapToRankingDto(ranking);
+    }
+
+    List<UsersHitsRankingDto> fetchAllRankingEntires() {
+        Instant startOfPreviousDay = TimeService.getStartOfPreviousUtcDay();
+        Instant endOfPreviousDay = TimeService.getEndOfPreviousUtcDay();
+        return UsersHitsRankingMapper.mapToRankingDto(fetchSortedRanking(startOfPreviousDay, endOfPreviousDay));
     }
 
     private List<UsersHitsRanking> fetchSortedRanking(Instant start, Instant end) {

@@ -1,18 +1,18 @@
-package pl.games.lotek.domain.numbersreceiver;
+package pl.games.lotek.domain.ticketsreceiver;
 
 import lombok.AllArgsConstructor;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import pl.games.auth.AuthenticatedUserService;
-import pl.games.lotek.domain.numbersreceiver.dto.LotekTicketDto;
-import pl.games.lotek.domain.numbersreceiver.dto.TicketSubmissionDto;
+import pl.games.lotek.domain.ticketsreceiver.dto.LotekTicketDto;
+import pl.games.lotek.domain.ticketsreceiver.dto.TicketSubmissionDto;
 
 import java.time.Instant;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class NumbersReceiverFacade {
+public class TicketsReceiverFacade {
 
     private final TicketSubmitter ticketSubmitter;
     private final AuthenticatedUserService authenticatedUserService;

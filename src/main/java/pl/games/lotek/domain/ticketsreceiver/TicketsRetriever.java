@@ -1,8 +1,8 @@
-package pl.games.lotek.domain.numbersreceiver;
+package pl.games.lotek.domain.ticketsreceiver;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.games.lotek.domain.numbersreceiver.dto.LotekTicketDto;
+import pl.games.lotek.domain.ticketsreceiver.dto.LotekTicketDto;
 
 import java.time.Instant;
 import java.util.List;

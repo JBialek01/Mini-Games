@@ -1,4 +1,4 @@
-package pl.games.lotek.domain.numbersreceiver;
+package pl.games.lotek.domain.ticketsreceiver;
 
 import org.springframework.stereotype.Service;
 import pl.games.lotek.domain.util.LotekConstants;

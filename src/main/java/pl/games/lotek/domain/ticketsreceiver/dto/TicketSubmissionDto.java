@@ -1,4 +1,4 @@
-package pl.games.lotek.domain.numbersreceiver.dto;
+package pl.games.lotek.domain.ticketsreceiver.dto;
 
 import java.util.Set;
 

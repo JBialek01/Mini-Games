@@ -2,8 +2,8 @@ package pl.games.lotek.domain.resultchecker;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.games.lotek.domain.numbersreceiver.NumbersReceiverFacade;
-import pl.games.lotek.domain.numbersreceiver.dto.LotekTicketDto;
+import pl.games.lotek.domain.ticketsreceiver.TicketsReceiverFacade;
+import pl.games.lotek.domain.ticketsreceiver.dto.LotekTicketDto;
 import pl.games.lotek.domain.util.TimeService;
 import pl.games.lotek.domain.winningnumbersgenerator.WinningNumbersGeneratorFacade;
 
@@ -18,14 +18,14 @@ class UserResultsChecker {
 
     private final WinningNumbersGeneratorFacade winningNumbersGeneratorFacade;
     private final UserResultsRepository userResultsRepository;
-    private final NumbersReceiverFacade numbersReceiverFacade;
+    private final TicketsReceiverFacade ticketsReceiverFacade;
 
     void checkAndSaveResults(String userId) {
         Instant startOfPreviousDay = TimeService.getStartOfPreviousUtcDay();
         Instant endOfPreviousDay = TimeService.getEndOfPreviousUtcDay();
         Set<Integer> winningNumbers = winningNumbersGeneratorFacade.getWinningNumbersForYesterday();
 
-        List<LotekTicketDto> userTicketsDtos = numbersReceiverFacade.findByUserIdAndDateBetween(userId, startOfPreviousDay, endOfPreviousDay);
+        List<LotekTicketDto> userTicketsDtos = ticketsReceiverFacade.findByUserIdAndDateBetween(userId, startOfPreviousDay, endOfPreviousDay);
 
         for (LotekTicketDto ticket : userTicketsDtos) {
             boolean alreadyExists = userResultsRepository.existsByUserIdAndUserNumbersId(userId, ticket.id());

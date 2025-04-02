@@ -1,6 +1,6 @@
-package pl.games.lotek.domain.numbersreceiver;
+package pl.games.lotek.domain.ticketsreceiver;
 
-import pl.games.lotek.domain.numbersreceiver.dto.LotekTicketDto;
+import pl.games.lotek.domain.ticketsreceiver.dto.LotekTicketDto;
 
 import java.util.List;
 import java.util.stream.Collectors;
