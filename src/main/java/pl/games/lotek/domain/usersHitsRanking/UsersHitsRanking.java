@@ -1,4 +1,4 @@
-package pl.games.lotek.domain.rankinggenerator;
+package pl.games.lotek.domain.usersHitsRanking;
 
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
@@ -9,7 +9,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
-@Document(collection = "ranking")
+@Document(collection = "userHitsRanking")
 @Getter
 class UsersHitsRanking {
 

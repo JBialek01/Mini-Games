@@ -13,7 +13,7 @@ class TicketsRetriever {
 
     private final LotekTicketRepository lotekTicketRepository;
 
-    List<LotekTicketDto> findByDateBetween (Instant from, Instant to){
+    List<LotekTicketDto> findByDateBetween(Instant from, Instant to) {
         List<LotekTicket> tickets = lotekTicketRepository.findByDateBetween(from, to);
         return LotekTicketMapper.mapToLotekTicketDto(tickets);
     }

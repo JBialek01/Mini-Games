@@ -1,4 +1,4 @@
-package pl.games.lotek.domain.rankinggenerator;
+package pl.games.lotek.domain.usersHitsRanking;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

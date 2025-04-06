@@ -13,7 +13,8 @@ import java.util.TreeSet;
 public class GuessNumberUserNumberWebProvider implements UserNumbersProvider {
     private final Set<Integer> userNumbers = new TreeSet<>();
 
-    public GuessNumberUserNumberWebProvider() {}
+    public GuessNumberUserNumberWebProvider() {
+    }
 
     @Override
     public void addNumbers(Set<Integer> numbers) {

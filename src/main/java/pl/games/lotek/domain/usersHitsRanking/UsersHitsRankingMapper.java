@@ -1,6 +1,6 @@
-package pl.games.lotek.domain.rankinggenerator;
+package pl.games.lotek.domain.usersHitsRanking;
 
-import pl.games.lotek.domain.rankinggenerator.dto.UsersHitsRankingDto;
+import pl.games.lotek.domain.usersHitsRanking.dto.UsersHitsRankingDto;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -17,16 +17,21 @@ public class ResultCheckerFacade {
     private final UserResultsChecker userResultsChecker;
     private final AuthenticatedUserService authenticatedUserService;
 
-    public List<UserResultsDto> getResults(OAuth2User user){
+    public List<UserResultsDto> getResultsForPreviousDay(OAuth2User user) {
         String userId = authenticatedUserService.getAuthenticatedUserId(user);
         return userResultsRetriever.getResults(userId);
     }
 
-    public void checkAndSaveResults(String userId){
+    public List<UserResultsDto> getResultsForSpecifiedDay(final OAuth2User user, final Long days) {
+        String userId = authenticatedUserService.getAuthenticatedUserId(user);
+        return userResultsRetriever.getResultsForSpecifiedDay(userId, days);
+    }
+
+    public void checkAndSaveResults(String userId) {
         userResultsChecker.checkAndSaveResults(userId);
     }
 
-    public List<UserResultsDto> findByDateBetween(Instant startOfPreviousDay, Instant endOfPreviousDay){
+    public List<UserResultsDto> findByDateBetween(Instant startOfPreviousDay, Instant endOfPreviousDay) {
         return userResultsRetriever.findByDateBetween(startOfPreviousDay, endOfPreviousDay);
     }
 }

@@ -23,11 +23,11 @@ public class TicketsReceiverFacade {
         return ticketSubmitter.submitTicket(userId);
     }
 
-    public List<LotekTicketDto> findByDateBetween (Instant start, Instant end) {
+    public List<LotekTicketDto> findByDateBetween(Instant start, Instant end) {
         return ticketsRetriever.findByDateBetween(start, end);
     }
 
-    public List<LotekTicketDto> findByUserIdAndDateBetween (String userId, Instant startOfPreviousDay, Instant endOfPreviousDay){
+    public List<LotekTicketDto> findByUserIdAndDateBetween(String userId, Instant startOfPreviousDay, Instant endOfPreviousDay) {
         return ticketsRetriever.findByUserIdAndDateBetween(userId, startOfPreviousDay, endOfPreviousDay);
     }
 }
