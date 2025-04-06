@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("/results")
 public class ResultCheckerController {
 
-    ResultCheckerFacade resultCheckerFacade;
+    private final ResultCheckerFacade resultCheckerFacade;
 
     @GetMapping
     public ResponseEntity<List<UserResultsDto>> checkWinResultsForPreviousDay(@AuthenticationPrincipal OAuth2User user) {

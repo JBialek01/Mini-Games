@@ -17,9 +17,9 @@ import java.util.List;
 @Scope("request")
 @AllArgsConstructor
 @RequestMapping("/ranking")
-public class usersHitsRankingController {
+public class UsersHitsRankingController {
 
-    RankingGeneratorFacade rankingGeneratorFacade;
+    private final RankingGeneratorFacade rankingGeneratorFacade;
 
     @PostMapping("/generate")
     public ResponseEntity<List<UsersHitsRankingDto>> generateAndGetRankingForPreviousDay() {
