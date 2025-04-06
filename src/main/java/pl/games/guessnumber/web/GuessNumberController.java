@@ -1,10 +1,10 @@
 package pl.games.guessnumber.web;
 
-import pl.games.app.core.UserNumbersProvider;
-import pl.games.guessnumber.core.GuessNumber;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pl.games.app.core.UserNumbersProvider;
+import pl.games.guessnumber.core.GuessNumber;
 
 import java.util.Set;
 
@@ -21,7 +21,7 @@ class GuessNumberController {
     }
 
     @GetMapping("/guessNumber")
-    public String requestNumber(@RequestParam("number") int number){
+    public String requestNumber(@RequestParam("number") int number) {
 //        WinChecker winChecker = new WinChecker(new UserNumberWebProvider(number));
         //WinChecker winChecker = new WinChecker();
         //return winChecker.checkWin(guessNumberSession.getWinningNumber(), number);

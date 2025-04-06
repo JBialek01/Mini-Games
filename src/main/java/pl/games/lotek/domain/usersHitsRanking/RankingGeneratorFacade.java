@@ -13,11 +13,11 @@ public class RankingGeneratorFacade {
     private final UsersHitsRankingGenerator usersHitsRankingGenerator;
     private final UsersHitsRankingRetriever usersHitsRankingRetriever;
 
-    public void generateRanking(){
+    public void generateRanking() {
         usersHitsRankingGenerator.generateRankingForPreviousDay();
     }
 
-    public List<UsersHitsRankingDto> fetchAllRankingEntries(){
+    public List<UsersHitsRankingDto> fetchAllRankingEntries() {
         return usersHitsRankingRetriever.fetchAllRankingEntries();
     }
 

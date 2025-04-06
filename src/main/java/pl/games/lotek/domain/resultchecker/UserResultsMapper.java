@@ -10,11 +10,11 @@ class UserResultsMapper {
     static List<UserResultsDto> mapToUserResultsDto(List<UserResults> previousDayResults) {
         return previousDayResults.stream()
                 .map(checkWinEntity -> new UserResultsDto(
-                                checkWinEntity.getUserId(),
-                                checkWinEntity.getDate(),
-                                checkWinEntity.getUserNumbers(),
-                                checkWinEntity.getWinningNumbers(),
-                                checkWinEntity.getHits()))
+                        checkWinEntity.getUserId(),
+                        checkWinEntity.getDate(),
+                        checkWinEntity.getUserNumbers(),
+                        checkWinEntity.getWinningNumbers(),
+                        checkWinEntity.getHits()))
                 .collect(Collectors.toList());
     }
 }

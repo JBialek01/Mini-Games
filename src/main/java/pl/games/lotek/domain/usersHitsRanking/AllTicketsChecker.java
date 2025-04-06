@@ -2,9 +2,9 @@ package pl.games.lotek.domain.usersHitsRanking;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.games.lotek.domain.resultchecker.ResultCheckerFacade;
 import pl.games.lotek.domain.ticketsreceiver.TicketsReceiverFacade;
 import pl.games.lotek.domain.ticketsreceiver.dto.LotekTicketDto;
-import pl.games.lotek.domain.resultchecker.ResultCheckerFacade;
 
 import java.time.Instant;
 import java.util.List;

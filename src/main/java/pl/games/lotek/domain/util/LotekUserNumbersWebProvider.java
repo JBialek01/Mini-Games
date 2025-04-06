@@ -14,7 +14,8 @@ public class LotekUserNumbersWebProvider implements UserNumbersProvider {
 
     private final Set<Integer> userNumbers = new TreeSet<>();
 
-    public LotekUserNumbersWebProvider() {}
+    public LotekUserNumbersWebProvider() {
+    }
 
 
     @Override
