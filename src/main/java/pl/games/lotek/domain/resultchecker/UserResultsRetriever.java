@@ -15,11 +15,18 @@ class UserResultsRetriever {
     private final UserResultsRepository userResultsRepository;
     private final UserResultsChecker userResultsChecker;
 
-    public List<UserResultsDto> getResults(String userId) {
+    List<UserResultsDto> getResults(String userId) {
         userResultsChecker.checkAndSaveResults(userId);
         Instant startOfPreviousDay = TimeService.getStartOfPreviousUtcDay();
         Instant endOfPreviousDay = TimeService.getEndOfPreviousUtcDay();
         List<UserResults> results = userResultsRepository.findByUserIdAndDateBetween(userId, startOfPreviousDay, endOfPreviousDay);
+        return UserResultsMapper.mapToUserResultsDto(results);
+    }
+
+    List<UserResultsDto> getResultsForSpecifiedDay(final String userId, final Long days) {
+        Instant startOfSpecifiedDay = TimeService.getStartOfSpecifiedDay(days);
+        Instant endOfSpecifiedDay = TimeService.getEndOfSpecifiedDay(days);
+        List<UserResults> results = userResultsRepository.findByUserIdAndDateBetween(userId, startOfSpecifiedDay, endOfSpecifiedDay);
         return UserResultsMapper.mapToUserResultsDto(results);
     }
 

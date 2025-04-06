@@ -1,10 +1,10 @@
-package pl.games.lotek.infrastructure.rankinggenerator.scheduler;
+package pl.games.lotek.infrastructure.usersHitsRanking.scheduler;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import pl.games.lotek.domain.rankinggenerator.RankingGeneratorFacade;
+import pl.games.lotek.domain.usersHitsRanking.RankingGeneratorFacade;
 
 @Service
 @AllArgsConstructor

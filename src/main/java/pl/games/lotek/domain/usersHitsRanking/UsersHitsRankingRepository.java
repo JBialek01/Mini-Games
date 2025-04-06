@@ -1,4 +1,4 @@
-package pl.games.lotek.domain.rankinggenerator;
+package pl.games.lotek.domain.usersHitsRanking;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
