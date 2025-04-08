@@ -29,7 +29,7 @@ public class GuessNumber implements Game, Nameable {
     @Override
     public GameResult startGame() {
 //        UserNumberProviderInterface userNumberProvider = winChecker.getUserNumberProvider();
-        int userNumber = userNumbersProvider.returnUserNumbers().stream().findFirst().get();
+        int userNumber = 2;
         message = winChecker.checkWin(winningNumber, userNumber);
         return new GameResult(null, null, message);
     }

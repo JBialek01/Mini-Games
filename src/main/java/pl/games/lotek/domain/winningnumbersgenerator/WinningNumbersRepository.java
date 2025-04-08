@@ -6,5 +6,5 @@ import java.time.Instant;
 
 interface WinningNumbersRepository extends MongoRepository<WinningNumbers, String> {
 
-    WinningNumbers findByDateBetween(Instant startOfPreviousDay, Instant endOfPreviousDay);
+    WinningNumbers findByDateBetween(Instant fromTime, Instant toTime);
 }

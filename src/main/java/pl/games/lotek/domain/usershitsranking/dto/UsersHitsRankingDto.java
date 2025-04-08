@@ -1,4 +1,4 @@
-package pl.games.lotek.domain.usersHitsRanking.dto;
+package pl.games.lotek.domain.usershitsranking.dto;
 
 import java.time.ZonedDateTime;
 

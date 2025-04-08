@@ -11,7 +11,7 @@ interface LotekTicketRepository extends MongoRepository<LotekTicket, String> {
 
     List<LotekTicket> findAll();
 
-    List<LotekTicket> findByUserIdAndDateBetween(String userId, Instant startOfPreviousDay, Instant endOfPreviousDay);
+    List<LotekTicket> findByUserIdAndDateBetween(String userId, Instant fromTime, Instant toTime);
 
-    List<LotekTicket> findByDateBetween(Instant startOfPreviousDay, Instant endOfPreviousDay);
+    List<LotekTicket> findByDateBetween(Instant fromTime, Instant toTime);
 }

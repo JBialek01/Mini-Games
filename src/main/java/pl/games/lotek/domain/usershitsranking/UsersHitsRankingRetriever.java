@@ -1,8 +1,8 @@
-package pl.games.lotek.domain.usersHitsRanking;
+package pl.games.lotek.domain.usershitsranking;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.games.lotek.domain.usersHitsRanking.dto.UsersHitsRankingDto;
+import pl.games.lotek.domain.usershitsranking.dto.UsersHitsRankingDto;
 import pl.games.lotek.domain.util.TimeService;
 
 import java.time.Instant;

@@ -25,7 +25,7 @@ class GuessNumberController {
 //        WinChecker winChecker = new WinChecker(new UserNumberWebProvider(number));
         //WinChecker winChecker = new WinChecker();
         //return winChecker.checkWin(guessNumberSession.getWinningNumber(), number);
-        userNumbersProvider.addNumbers(Set.of(number));
+        //userNumbersProvider.addNumbers(Set.of(number));
         return guessNumber.startGame().getMessage();
     }
 }

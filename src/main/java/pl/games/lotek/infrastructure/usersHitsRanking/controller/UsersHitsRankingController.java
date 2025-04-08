@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.games.lotek.domain.usersHitsRanking.RankingGeneratorFacade;
-import pl.games.lotek.domain.usersHitsRanking.dto.UsersHitsRankingDto;
+import pl.games.lotek.domain.usershitsranking.UsersHitsRankingFacade;
+import pl.games.lotek.domain.usershitsranking.dto.UsersHitsRankingDto;
 
 import java.util.List;
 
@@ -19,24 +19,24 @@ import java.util.List;
 @RequestMapping("/ranking")
 public class UsersHitsRankingController {
 
-    private final RankingGeneratorFacade rankingGeneratorFacade;
+    private final UsersHitsRankingFacade usersHitsRankingFacade;
 
     @PostMapping("/generate")
     public ResponseEntity<List<UsersHitsRankingDto>> generateAndGetRankingForPreviousDay() {
-        rankingGeneratorFacade.generateRanking();
-        List<UsersHitsRankingDto> usersHitsRankingDtos = rankingGeneratorFacade.fetchAllRankingEntries();
+        usersHitsRankingFacade.generateRanking();
+        List<UsersHitsRankingDto> usersHitsRankingDtos = usersHitsRankingFacade.fetchAllRankingEntries();
         return ResponseEntity.ok(usersHitsRankingDtos);
     }
 
     @GetMapping
     public ResponseEntity<List<UsersHitsRankingDto>> getRankingForPreviousDay() {
-        List<UsersHitsRankingDto> usersHitsRankingDtos = rankingGeneratorFacade.fetchAllRankingEntries();
+        List<UsersHitsRankingDto> usersHitsRankingDtos = usersHitsRankingFacade.fetchAllRankingEntries();
         return ResponseEntity.ok(usersHitsRankingDtos);
     }
 
     @GetMapping("/{daysToSubstract}")
     public ResponseEntity<List<UsersHitsRankingDto>> getRankingForSpecifiedDay(@PathVariable("daysToSubstract") Long days) {
-        List<UsersHitsRankingDto> usersHitsRankingDtos = rankingGeneratorFacade.fetchAllRankingEntriesByDay(days);
+        List<UsersHitsRankingDto> usersHitsRankingDtos = usersHitsRankingFacade.fetchAllRankingEntriesByDay(days);
         return ResponseEntity.ok(usersHitsRankingDtos);
     }
 }
