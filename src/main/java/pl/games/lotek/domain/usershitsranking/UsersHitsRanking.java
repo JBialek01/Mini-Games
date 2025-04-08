@@ -1,4 +1,4 @@
-package pl.games.lotek.domain.usersHitsRanking;
+package pl.games.lotek.domain.usershitsranking;
 
 import lombok.Getter;
 import org.springframework.data.annotation.Id;

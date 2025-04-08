@@ -9,6 +9,7 @@ import pl.games.lotek.domain.ticketsreceiver.dto.TicketSubmissionDto;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -18,9 +19,9 @@ public class TicketsReceiverFacade {
     private final AuthenticatedUserService authenticatedUserService;
     private final TicketsRetriever ticketsRetriever;
 
-    public TicketSubmissionDto submitTicket(OAuth2User user) {
+    public TicketSubmissionDto submitTicket(OAuth2User user, Set<Integer> userNumbers) {
         String userId = authenticatedUserService.getAuthenticatedUserId(user);
-        return ticketSubmitter.submitTicket(userId);
+        return ticketSubmitter.submitTicket(userId, userNumbers);
     }
 
     public List<LotekTicketDto> findByDateBetween(Instant start, Instant end) {
