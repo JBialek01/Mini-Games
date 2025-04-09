@@ -1,5 +1,6 @@
 package pl.games.lotek.domain.ticketsreceiver;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -19,9 +20,8 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 
 class TicketsReceiverFacadeTest {
 
-    TicketsReceiverFacade ticketsReceiverFacade = TicketsReceiverFacadeConfiguration.ticketsReceiverFacade(
-            new LotekTicketRepositoryTestImpl()
-    );
+    private final LotekTicketRepository ticketRepository = new LotekTicketRepositoryTestImpl();
+    TicketsReceiverFacade ticketsReceiverFacade = new TicketsReceiverFacadeConfiguration().ticketsReceiverFacade(ticketRepository);
 
     OAuth2User user = new DefaultOAuth2User(
             Set.of(),
@@ -42,6 +42,7 @@ class TicketsReceiverFacadeTest {
     );
 
     @Test
+    @DisplayName("It should submit ticket")
     public void it_should_submit_ticket() {
         // given
         Set<Integer> numbersFromUser = Set.of(1, 2, 3, 4, 5, 6);
@@ -53,6 +54,7 @@ class TicketsReceiverFacadeTest {
     }
 
     @Test
+    @DisplayName("It should throw UserGaveDifferentNumberCountThanSix exception")
     public void it_should_throw_user_gave_different_number_count_than_six_exception() {
         // given
         Set<Integer> numbersFromUser = Set.of(1, 2, 3, 4, 5, 6, 7);
@@ -64,7 +66,8 @@ class TicketsReceiverFacadeTest {
     }
 
     @Test
-    public void it_should_throw_user_gave__number_outside_the_range_exception() {
+    @DisplayName("It should throw UserGaveNumberOutsideTheRange exception")
+    public void it_should_throw_user_gave_number_outside_the_range_exception() {
         // given
         Set<Integer> numbersFromUser = Set.of(1, 2, 3, 4, 5, 100);
         // when
@@ -75,6 +78,7 @@ class TicketsReceiverFacadeTest {
     }
 
     @Test
+    @DisplayName("It should return tickets with dates within given range")
     public void it_should_return_tickets_with_dates_within_given_range() {
         // given
         Set<Integer> numbersFromUser = Set.of(1, 2, 3, 4, 5, 6);
@@ -91,8 +95,8 @@ class TicketsReceiverFacadeTest {
                 .forEach(numbers -> assertThat(numbers).isIn(Set.of(numbersFromUser, numbersFromUser2)));
     }
 
-
     @Test
+    @DisplayName("It should return tickets with given userId and dates within given range")
     public void it_should_return_tickets_with_given_userId_and_dates_within_given_range() {
         // given
         Set<Integer> numbersFromUser = Set.of(1, 2, 3, 4, 5, 6);
@@ -112,5 +116,4 @@ class TicketsReceiverFacadeTest {
         tickets.stream().map(LotekTicketDto::userNumbers)
                         .forEach(numbers -> assertThat(numbers).isIn(Set.of(numbersFromUser, numbersFromUser2)));
     }
-
 }

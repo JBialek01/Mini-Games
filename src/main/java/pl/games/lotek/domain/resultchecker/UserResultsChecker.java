@@ -2,12 +2,14 @@ package pl.games.lotek.domain.resultchecker;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.games.lotek.domain.resultchecker.dto.UserResultsDto;
 import pl.games.lotek.domain.ticketsreceiver.TicketsReceiverFacade;
 import pl.games.lotek.domain.ticketsreceiver.dto.LotekTicketDto;
 import pl.games.lotek.domain.util.TimeService;
 import pl.games.lotek.domain.winningnumbersgenerator.WinningNumbersGeneratorFacade;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -20,7 +22,8 @@ class UserResultsChecker {
     private final UserResultsRepository userResultsRepository;
     private final TicketsReceiverFacade ticketsReceiverFacade;
 
-    void checkAndSaveResults(String userId) {
+    List<UserResultsDto> checkAndSaveResults(String userId) {
+        List<UserResults> userResults = new ArrayList<>();
         Instant startOfPreviousDay = TimeService.getStartOfPreviousUtcDay();
         Instant endOfPreviousDay = TimeService.getEndOfPreviousUtcDay();
         Set<Integer> winningNumbers = winningNumbersGeneratorFacade.getWinningNumbersForYesterday();
@@ -44,8 +47,10 @@ class UserResultsChecker {
                     winningNumbers,
                     (int) hits
             );
-            userResultsRepository.save(result);
+            UserResults userResult = userResultsRepository.save(result);
+            userResults.add(userResult);
         }
+        return UserResultsMapper.mapToUserResultsDto(userResults);
     }
 }
 

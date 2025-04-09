@@ -1,10 +1,15 @@
 package pl.games.lotek.domain.ticketsreceiver;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.annotation.Id;
 import pl.games.auth.AuthenticatedUserService;
 
+@Configuration
 class TicketsReceiverFacadeConfiguration {
 
-    public static TicketsReceiverFacade ticketsReceiverFacade(final LotekTicketRepository ticketRepository) {
+    @Bean
+    TicketsReceiverFacade ticketsReceiverFacade(LotekTicketRepository ticketRepository) {
         NumbersValidator numbersValidator = new NumbersValidator();
         TicketSubmitter ticketSubmitter = new TicketSubmitter(ticketRepository, numbersValidator);
         AuthenticatedUserService authenticatedUserService = new AuthenticatedUserService();

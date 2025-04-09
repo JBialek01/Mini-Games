@@ -30,7 +30,7 @@ class WinningNumbers {
         this.id = UUID.randomUUID().toString();
     }
 
-    public ZonedDateTime getDate() {
-        return ZonedDateTime.ofInstant(date, ZoneId.systemDefault());
+    public Instant getTimestamp() {
+        return date;
     }
 }

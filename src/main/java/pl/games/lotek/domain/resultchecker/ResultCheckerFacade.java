@@ -9,7 +9,6 @@ import pl.games.lotek.domain.resultchecker.dto.UserResultsDto;
 import java.time.Instant;
 import java.util.List;
 
-@Service
 @AllArgsConstructor
 public class ResultCheckerFacade {
 
@@ -27,8 +26,8 @@ public class ResultCheckerFacade {
         return userResultsRetriever.getResultsForSpecifiedDay(userId, days);
     }
 
-    public void checkAndSaveResults(String userId) {
-        userResultsChecker.checkAndSaveResults(userId);
+    public List<UserResultsDto> checkAndSaveResults(String userId) {
+        return userResultsChecker.checkAndSaveResults(userId);
     }
 
     public List<UserResultsDto> findByDateBetween(Instant startOfPreviousDay, Instant endOfPreviousDay) {
