@@ -106,6 +106,7 @@ class ResultCheckerFacadeTest {
     }
 
     @Test
+    @DisplayName("It should get results for specified user and day")
     public void it_should_get_results_for_specified_user_and_day() {
         // Given
         List<LotekTicketDto> tickets = new ArrayList<>();
@@ -131,6 +132,7 @@ class ResultCheckerFacadeTest {
     }
 
     @Test
+    @DisplayName("It should return results for previous day for specified user")
     public void it_should_return_results_for_previous_day_for_specified_user() {
         // Given
         List<LotekTicketDto> tickets = new ArrayList<>();

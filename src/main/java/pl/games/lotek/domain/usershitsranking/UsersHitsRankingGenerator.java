@@ -20,12 +20,23 @@ class UsersHitsRankingGenerator {
     private final AllTicketsChecker allTicketsChecker;
 
 
-    void generateRankingForPreviousDay() {
+    String generateRankingForPreviousDay() {
         Instant startOfPreviousDay = TimeService.getStartOfPreviousUtcDay();
         Instant endOfPreviousDay = TimeService.getEndOfPreviousUtcDay();
         allTicketsChecker.checkAllUsersTickets(startOfPreviousDay, endOfPreviousDay);
         List<UserResultsDto> previousDayResults = resultCheckerFacade.findByDateBetween(startOfPreviousDay, endOfPreviousDay);
         Map<String, Integer> userBestHits = userBestHitsCalculator.calculateUserBestHits(previousDayResults);
-        rankingEntriesSaver.saveNewRankingEntries(userBestHits, startOfPreviousDay, endOfPreviousDay);
+        rankingEntriesSaver.saveNewRankingEntries(userBestHits, startOfPreviousDay, endOfPreviousDay, 1L);
+        return "Ranking for previous day generated successfully";
+    }
+
+    String generateRankingForSpecifiedDay(final Long days) {
+        Instant startOfSpecifiedDay = TimeService.getStartOfSpecifiedDay(days);
+        Instant endOfSpecifiedDay = TimeService.getEndOfSpecifiedDay(days);
+        allTicketsChecker.checkAllUsersTickets(startOfSpecifiedDay, endOfSpecifiedDay);
+        List<UserResultsDto> specifiedDayResults = resultCheckerFacade.findByDateBetween(startOfSpecifiedDay, endOfSpecifiedDay);
+        Map<String, Integer> userBestHits = userBestHitsCalculator.calculateUserBestHits(specifiedDayResults);
+        rankingEntriesSaver.saveNewRankingEntries(userBestHits, startOfSpecifiedDay, endOfSpecifiedDay, days);
+        return "Ranking for specified day generated successfully";
     }
 }

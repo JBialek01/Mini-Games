@@ -23,7 +23,7 @@ public class UsersHitsRankingController {
 
     @PostMapping("/generate")
     public ResponseEntity<List<UsersHitsRankingDto>> generateAndGetRankingForPreviousDay() {
-        usersHitsRankingFacade.generateRanking();
+        usersHitsRankingFacade.generateRankingForYesterday();
         List<UsersHitsRankingDto> usersHitsRankingDtos = usersHitsRankingFacade.fetchAllRankingEntries();
         return ResponseEntity.ok(usersHitsRankingDtos);
     }

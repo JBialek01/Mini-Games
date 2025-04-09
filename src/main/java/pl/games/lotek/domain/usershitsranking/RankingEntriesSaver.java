@@ -15,10 +15,10 @@ class RankingEntriesSaver {
 
     private final UsersHitsRankingRepository usersHitsRankingRepository;
 
-    void saveNewRankingEntries(Map<String, Integer> userBestHits, Instant start, Instant end) {
+    void saveNewRankingEntries(Map<String, Integer> userBestHits, Instant start, Instant end, Long days) {
         List<UsersHitsRanking> ranking = userBestHits.entrySet().stream()
                 .filter(entry -> usersHitsRankingRepository.findByDateBetweenAndUserId(start, end, entry.getKey()).isEmpty())
-                .map(entry -> new UsersHitsRanking(ZonedDateTime.now().minusDays(1), entry.getValue(), entry.getKey()))
+                .map(entry -> new UsersHitsRanking(ZonedDateTime.now().minusDays(days), entry.getValue(), entry.getKey()))
                 .collect(Collectors.toList());
         usersHitsRankingRepository.saveAll(ranking);
     }

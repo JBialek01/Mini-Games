@@ -32,4 +32,8 @@ class UsersHitsRanking {
     public ZonedDateTime getDate() {
         return ZonedDateTime.ofInstant(date, ZoneId.systemDefault());
     }
+
+    public Instant getTimestamp() {
+        return date;
+    }
 }
