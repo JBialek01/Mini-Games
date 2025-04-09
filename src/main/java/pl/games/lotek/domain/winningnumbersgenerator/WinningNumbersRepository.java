@@ -7,4 +7,6 @@ import java.time.Instant;
 interface WinningNumbersRepository extends MongoRepository<WinningNumbers, String> {
 
     WinningNumbers findByDateBetween(Instant fromTime, Instant toTime);
+
+    WinningNumbers save(WinningNumbers winningNumbers);
 }

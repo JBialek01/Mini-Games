@@ -12,4 +12,6 @@ interface UserResultsRepository extends MongoRepository<UserResults, String> {
     List<UserResults> findByUserIdAndDateBetween(String userId, Instant fromTime, Instant toTime);
 
     List<UserResults> findByDateBetween(Instant fromTime, Instant toTime);
+
+    UserResults save(UserResults userResults);
 }
