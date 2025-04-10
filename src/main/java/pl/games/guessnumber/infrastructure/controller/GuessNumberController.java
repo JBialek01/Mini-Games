@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.games.guessnumber.domain.GuessNumberFacade;
 import pl.games.guessnumber.domain.dto.DrawDateDto;
 import pl.games.guessnumber.domain.dto.NumberSubmissionDto;
+import pl.games.guessnumber.domain.dto.UserRankingDto;
+
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -38,7 +41,14 @@ class GuessNumberController {
 
     @GetMapping("/nextDrawDate")
     public ResponseEntity<DrawDateDto> getNextDrawDate() {
-        DrawDateDto drawDateDto = facade.getNextDrawDate();
-        return ResponseEntity.ok(drawDateDto);
+        DrawDateDto response = facade.getNextDrawDate();
+        return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/ranking/{days}")
+    public ResponseEntity<List<UserRankingDto>> getRanking(@PathVariable Long days) {
+        List<UserRankingDto> response = facade.getRanking(days);
+        return ResponseEntity.ok(response);
+    }
+
 }

@@ -20,8 +20,7 @@ class UserResultRetriever {
         if (result.isPresent()) {
             NumberSubmissionDto dto = new NumberSubmissionDto(result.get().getAttempts(), result.get().getMessage());
             return dto;
-        }
-        else{
+        } else {
             return new NumberSubmissionDto(0, "No result found for the specified day");
         }
     }
