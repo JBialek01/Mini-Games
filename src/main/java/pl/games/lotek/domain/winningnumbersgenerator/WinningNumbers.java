@@ -6,13 +6,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
 import java.util.Set;
 import java.util.UUID;
 
-@Document(collection = "winningNumbers")
+@Document(collection = "lotek_winningNumbers")
 @Getter
 class WinningNumbers {
 

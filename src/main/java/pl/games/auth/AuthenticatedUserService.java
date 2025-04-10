@@ -13,18 +13,4 @@ public class AuthenticatedUserService {
         }
         return null;
     }
-
-    public String getAuthenticatedUserEmail(@AuthenticationPrincipal OAuth2User user) {
-        if (user != null) {
-            return user.getAttribute("email"); // Pobiera email użytkownika z Google OAuth2
-        }
-        return null;
-    }
-
-    public String getAuthenticatedUserName(@AuthenticationPrincipal OAuth2User user) {
-        if (user != null) {
-            return user.getAttribute("name"); // Pobiera nazwę użytkownika z Google OAuth2
-        }
-        return null;
-    }
 }

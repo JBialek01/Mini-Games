@@ -1,7 +1,6 @@
 package pl.games.lotek.domain.winningnumbersgenerator;
 
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import java.util.Set;
 

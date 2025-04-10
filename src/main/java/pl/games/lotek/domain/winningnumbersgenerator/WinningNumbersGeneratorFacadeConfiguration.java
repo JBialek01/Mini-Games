@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Configuration;
 class WinningNumbersGeneratorFacadeConfiguration {
 
     @Bean
-     WinningNumbersGeneratorFacade winningNumbersGeneratorFacade(WinningNumbersRepository winningNumbersRepository) {
-         WinningNumbersGenerator winningNumbersGenerator = new WinningNumbersGenerator(winningNumbersRepository);
-            return new WinningNumbersGeneratorFacade(winningNumbersGenerator);
-     }
+    WinningNumbersGeneratorFacade winningNumbersGeneratorFacade(WinningNumbersRepository winningNumbersRepository) {
+        WinningNumbersGenerator winningNumbersGenerator = new WinningNumbersGenerator(winningNumbersRepository);
+        return new WinningNumbersGeneratorFacade(winningNumbersGenerator);
+    }
 }
