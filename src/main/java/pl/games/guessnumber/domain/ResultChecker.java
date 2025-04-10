@@ -40,9 +40,11 @@ class ResultChecker {
 
         if (guess < winningNumber) {
             session.setMessage("Provided number is too low");
+            sessionRepository.save(session);
             return new NumberSubmissionDto(session.getAttempts(), session.getMessage());
         } else {
             session.setMessage("Provided number is too high");
+            sessionRepository.save(session);
             return new NumberSubmissionDto(session.getAttempts(), session.getMessage());
         }
     }

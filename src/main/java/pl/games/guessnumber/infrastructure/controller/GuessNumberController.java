@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.games.guessnumber.domain.GuessNumberFacade;
+import pl.games.guessnumber.domain.dto.DrawDateDto;
 import pl.games.guessnumber.domain.dto.NumberSubmissionDto;
 
 @RestController
@@ -33,5 +34,11 @@ class GuessNumberController {
     public ResponseEntity<NumberSubmissionDto> getResultForSpecifiedDay(@AuthenticationPrincipal OAuth2User user, @PathVariable Integer days) {
         NumberSubmissionDto response = facade.getResultForSpecifiedDay(user, days);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/nextDrawDate")
+    public ResponseEntity<DrawDateDto> getNextDrawDate() {
+        DrawDateDto drawDateDto = facade.getNextDrawDate();
+        return ResponseEntity.ok(drawDateDto);
     }
 }
