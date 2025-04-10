@@ -2,7 +2,6 @@ package pl.games.lotek.domain.ticketsreceiver;
 
 import lombok.AllArgsConstructor;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.stereotype.Service;
 import pl.games.auth.AuthenticatedUserService;
 import pl.games.lotek.domain.ticketsreceiver.dto.LotekTicketDto;
 import pl.games.lotek.domain.ticketsreceiver.dto.TicketSubmissionDto;

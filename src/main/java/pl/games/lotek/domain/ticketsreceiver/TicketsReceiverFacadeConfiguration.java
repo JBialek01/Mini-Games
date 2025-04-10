@@ -2,7 +2,6 @@ package pl.games.lotek.domain.ticketsreceiver;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.annotation.Id;
 import pl.games.auth.AuthenticatedUserService;
 
 @Configuration

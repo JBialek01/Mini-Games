@@ -9,7 +9,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
-@Document(collection = "userHitsRanking")
+@Document(collection = "lotek_userHitsRanking")
 @Getter
 class UsersHitsRanking {
 

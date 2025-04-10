@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import pl.games.lotek.domain.ticketsreceiver.TicketsReceiverFacade;
@@ -22,7 +22,7 @@ public class NumbersReceiverController {
 
     private final TicketsReceiverFacade ticketsReceiverFacade;
 
-    @GetMapping("/lotekSubmitTicket")
+    @PostMapping("/lotekSubmitTicket")
     public ResponseEntity<TicketSubmissionDto> submitTicket(@AuthenticationPrincipal OAuth2User user, @RequestBody @Valid UserNumbersRequestDto requestDto) {
         Set<Integer> userNumbers = new HashSet<>(requestDto.numbers());
         TicketSubmissionDto response = ticketsReceiverFacade.submitTicket(user, userNumbers);

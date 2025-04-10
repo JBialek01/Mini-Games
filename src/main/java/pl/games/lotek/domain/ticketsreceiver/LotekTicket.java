@@ -10,7 +10,7 @@ import java.time.ZonedDateTime;
 import java.util.Set;
 import java.util.UUID;
 
-@Document(collection = "lotekTickets")
+@Document(collection = "lotek_tickets")
 @Getter
 class LotekTicket {
 
