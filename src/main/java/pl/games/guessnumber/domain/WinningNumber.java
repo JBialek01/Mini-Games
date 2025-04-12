@@ -24,4 +24,8 @@ class WinningNumber {
         this.date = date;
         this.number = number;
     }
+
+    void setId(String id) {
+        this.id = id;
+    }
 }

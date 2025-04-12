@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.games.guessnumber.domain.dto.UserRankingDto;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -21,11 +22,10 @@ class UserRankingRetriever {
 
         if (ranking != null && !ranking.isEmpty()) {
             return ranking.stream()
-                    .sorted((a, b) -> {
-                        if (a.getHasWon() && !b.getHasWon()) return -1;
-                        if (!a.getHasWon() && b.getHasWon()) return 1;
-                        return Integer.compare(a.getAttempts(), b.getAttempts());
-                    })
+                    .sorted(
+                            Comparator.comparing(UserGameSessionResult::getHasWon).reversed() // true przed false
+                                    .thenComparing(UserGameSessionResult::getAttempts)
+                    )
                     .map(userGameSessionResult -> new UserRankingDto(
                             userGameSessionResult.getUserId(),
                             userGameSessionResult.getAttempts(),

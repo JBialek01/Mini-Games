@@ -26,4 +26,8 @@ class UserNumber {
         this.date = date;
         this.number = number;
     }
+
+    void setId(final String id) {
+        this.id = id;
+    }
 }

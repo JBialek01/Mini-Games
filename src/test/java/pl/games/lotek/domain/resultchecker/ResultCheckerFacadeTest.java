@@ -47,7 +47,7 @@ class ResultCheckerFacadeTest {
     @Test
     @DisplayName("It should check, save and return results for specified user")
     public void it_should_check_save_and_return_results_for_specified_user() {
-        //given
+        // Given
         List<LotekTicketDto> tickets = new ArrayList<>();
         final LotekTicketDto lotekTicketDto = LotekTicketDto.builder()
                 .id("123")
@@ -65,9 +65,9 @@ class ResultCheckerFacadeTest {
         tickets.add(lotekTicketDto2);
         when(ticketsReceiverFacade.findByUserIdAndDateBetween(any(), any(), any())).thenReturn(tickets);
         when(winningNumbersGeneratorFacade.getWinningNumbersForYesterday()).thenReturn(Set.of(1, 2, 3, 4, 5, 7));
-        //when
+        // When
         List<UserResultsDto> userResultsDtos = resultCheckerFacade.checkAndSaveResults("userId");
-        //then
+        // Then
         assertThat(userResultsDtos).hasSize(2);
         assertThat(userResultsDtos.get(0).userId()).isEqualTo("userId");
         assertThat(userResultsDtos.get(0).userNumbers()).isEqualTo(Set.of(1, 2, 3, 4, 5, 6));
