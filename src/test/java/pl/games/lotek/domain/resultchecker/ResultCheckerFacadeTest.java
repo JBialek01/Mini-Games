@@ -121,7 +121,7 @@ class ResultCheckerFacadeTest {
         when(winningNumbersGeneratorFacade.getWinningNumbersForYesterday()).thenReturn(Set.of(1, 2, 3, 4, 5, 6));
         resultCheckerFacade.checkAndSaveResults("userId");
         // When
-        List<UserResultsDto> results = resultCheckerFacade.getResultsForSpecifiedDay(user, 5L);
+        List<UserResultsDto> results = resultCheckerFacade.getResultsForSpecifiedDay(user, 5);
         // Then
         assertThat(results).hasSize(1);
         assertThat(results.get(0).userId()).isEqualTo("userId");
@@ -145,8 +145,9 @@ class ResultCheckerFacadeTest {
         tickets.add(lotekTicketDto);
         when(ticketsReceiverFacade.findByUserIdAndDateBetween(any(), any(), any())).thenReturn(tickets);
         when(winningNumbersGeneratorFacade.getWinningNumbersForYesterday()).thenReturn(Set.of(1, 2, 3, 4, 5, 7));
+        resultCheckerFacade.checkAndSaveResults("userId");
         // When
-        List<UserResultsDto> results = resultCheckerFacade.getResultsForPreviousDay(user);
+        List<UserResultsDto> results = resultCheckerFacade.getResultsForSpecifiedDay(user, 1);
         // Then
         assertThat(results).hasSize(1);
         assertThat(results.get(0).userId()).isEqualTo("userId");

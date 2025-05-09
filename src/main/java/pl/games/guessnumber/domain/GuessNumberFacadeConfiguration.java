@@ -10,7 +10,7 @@ class GuessNumberFacadeConfiguration {
         UserResultRetriever userResultRetriever = new UserResultRetriever(userGameSessionRepository);
         NumberValidator numberValidator = new NumberValidator();
         UserNumberSaver userNumberSaver = new UserNumberSaver(userNumberRepository, numberValidator);
-        WinningNumberProvider winningNumberProvider = new WinningNumberProvider(winningNumberRepository);
+        WinningNumberProviderInterface winningNumberProvider = new WinningNumberProvider(winningNumberRepository);
         ResultChecker resultChecker = new ResultChecker(winningNumberProvider, userGameSessionRepository);
         DrawDateRetriever drawDateRetriever = new DrawDateRetriever();
         UserRankingRetriever userRankingRetriever = new UserRankingRetriever(userGameSessionRepository);

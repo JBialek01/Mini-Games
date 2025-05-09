@@ -49,9 +49,8 @@ class GuessNumberFacadeTest {
     @Test
     public void it_should_return_message_that_given_number_was_too_low(){
         // Given
-        var winningNumberProvider = mock(WinningNumberProvider.class);
-        when(winningNumberProvider.getWinningNumber(0L))
-                .thenReturn(new WinningNumberDto("id", Instant.now(), 10));
+        WinningNumberProviderInterface winningNumberProvider =
+                daysToSubstract -> new WinningNumberDto("id", Instant.now(), 10);
         var authenticatedUserService = mock(AuthenticatedUserService.class);
         when(authenticatedUserService.getAuthenticatedUserId(any())).thenReturn("userId");
         var userGameSessionRepository = new UserGameSessionRepositoryTestImpl();

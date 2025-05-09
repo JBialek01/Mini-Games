@@ -16,12 +16,6 @@ class UsersHitsRankingRetriever {
 
     private final UsersHitsRankingRepository usersHitsRankingRepository;
 
-    List<UsersHitsRankingDto> fetchAllRankingEntries() {
-        Instant startOfPreviousDay = TimeService.getStartOfPreviousUtcDay();
-        Instant endOfPreviousDay = TimeService.getEndOfPreviousUtcDay();
-        return UsersHitsRankingMapper.mapToRankingDto(fetchSortedRanking(startOfPreviousDay, endOfPreviousDay));
-    }
-
     List<UsersHitsRankingDto> fetchAllRankingEntriesByDay(final Long daysToSubtract) {
         Instant startOfSpecifiedDay = TimeService.getStartOfSpecifiedDay(daysToSubtract);
         Instant endOfSpecifiedDay = TimeService.getEndOfSpecifiedDay(daysToSubtract);

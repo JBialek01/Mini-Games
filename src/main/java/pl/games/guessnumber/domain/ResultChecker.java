@@ -12,7 +12,7 @@ import java.time.ZoneOffset;
 @AllArgsConstructor
 class ResultChecker {
 
-    private final WinningNumberProvider winningNumberProvider;
+    private final WinningNumberProviderInterface winningNumberProvider;
     private final UserGameSessionRepository sessionRepository;
 
     NumberSubmissionDto checkResult(String userId, SavedNumberDto savedNumberDto) {

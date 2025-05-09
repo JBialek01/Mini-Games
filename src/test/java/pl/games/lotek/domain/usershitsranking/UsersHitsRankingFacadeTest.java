@@ -44,9 +44,9 @@ class UsersHitsRankingFacadeTest {
         userResultsDtos.add(new UserResultsDto("user2", ZonedDateTime.now().minusDays(1), Set.of(1, 2, 33, 7, 9, 10), Set.of(1, 2, 3, 4, 5, 6), 2));
         userResultsDtos.add(new UserResultsDto("user3", ZonedDateTime.now().minusDays(1), Set.of(1, 2, 3, 4, 5, 10), Set.of(1, 2, 3, 4, 5, 6), 5));
         when(resultCheckerFacade.findByDateBetween(any(), any())).thenReturn(userResultsDtos);
-        usersHitsRankingFacade.generateRankingForYesterday();
+        usersHitsRankingFacade.generateRankingForSpecifiedDay(1L);
         //when
-        List<UsersHitsRankingDto> result = usersHitsRankingFacade.fetchAllRankingEntries();
+        List<UsersHitsRankingDto> result = usersHitsRankingFacade.fetchAllRankingEntriesByDay(1L);
         //then
         assertThat(result).hasSize(3);
         assertThat(result.get(0).userId()).isEqualTo("user3");
@@ -87,9 +87,9 @@ class UsersHitsRankingFacadeTest {
     public void it_should_generate_users_hits_ranking_for_yesterday(){
         //given
         //when
-        String result = usersHitsRankingFacade.generateRankingForYesterday();
+        String result = usersHitsRankingFacade.generateRankingForSpecifiedDay(1L);
         //then
-        assertThat(result).isEqualTo("Ranking for previous day generated successfully");
+        assertThat(result).isEqualTo("Ranking for specified day generated successfully");
     }
 
     @Test
