@@ -11,11 +11,11 @@ import java.util.Random;
 
 @Service
 @AllArgsConstructor
-class WinningNumberProvider {
+class WinningNumberProvider implements WinningNumberProviderInterface{
 
     private final WinningNumberRepository repository;
 
-    WinningNumberDto getWinningNumber(Long daysToSubstract) {
+    public WinningNumberDto getWinningNumber(Long daysToSubstract) {
         Random rand = new Random();
         Integer number = rand.nextInt(GuessNumberConstants.LOWEST_NUMBER, GuessNumberConstants.HIGHEST_NUMBER);
 

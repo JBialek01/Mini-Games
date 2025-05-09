@@ -15,12 +15,7 @@ public class ResultCheckerFacade {
     private final UserResultsChecker userResultsChecker;
     private final AuthenticatedUserService authenticatedUserService;
 
-    public List<UserResultsDto> getResultsForPreviousDay(OAuth2User user) {
-        String userId = authenticatedUserService.getAuthenticatedUserId(user);
-        return userResultsRetriever.getResults(userId);
-    }
-
-    public List<UserResultsDto> getResultsForSpecifiedDay(final OAuth2User user, final Long days) {
+    public List<UserResultsDto> getResultsForSpecifiedDay(final OAuth2User user, final long days) {
         String userId = authenticatedUserService.getAuthenticatedUserId(user);
         return userResultsRetriever.getResultsForSpecifiedDay(userId, days);
     }
@@ -31,5 +26,9 @@ public class ResultCheckerFacade {
 
     public List<UserResultsDto> findByDateBetween(Instant startOfPreviousDay, Instant endOfPreviousDay) {
         return userResultsRetriever.findByDateBetween(startOfPreviousDay, endOfPreviousDay);
+    }
+
+    public void saveUserResult(final UserResultsDto testResult) {
+        userResultsChecker.saveUserResults(testResult);
     }
 }

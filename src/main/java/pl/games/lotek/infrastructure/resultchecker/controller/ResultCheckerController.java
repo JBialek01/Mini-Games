@@ -24,12 +24,12 @@ public class ResultCheckerController {
 
     @GetMapping
     public ResponseEntity<List<UserResultsDto>> checkWinResultsForPreviousDay(@AuthenticationPrincipal OAuth2User user) {
-        List<UserResultsDto> winsDtos = resultCheckerFacade.getResultsForPreviousDay(user);
+        List<UserResultsDto> winsDtos = resultCheckerFacade.getResultsForSpecifiedDay(user, 1);
         return ResponseEntity.ok(winsDtos);
     }
 
     @GetMapping("/{daysToSubstract}")
-    public ResponseEntity<List<UserResultsDto>> checkWinResultsForSpecifiedDay(@AuthenticationPrincipal OAuth2User user, @PathVariable("daysToSubstract") Long days) {
+    public ResponseEntity<List<UserResultsDto>> checkWinResultsForSpecifiedDay(@AuthenticationPrincipal OAuth2User user, @PathVariable("daysToSubstract") long days) {
         List<UserResultsDto> winsDtos = resultCheckerFacade.getResultsForSpecifiedDay(user, days);
         return ResponseEntity.ok(winsDtos);
     }

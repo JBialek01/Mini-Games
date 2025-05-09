@@ -16,6 +16,6 @@ class RankingGeneratorScheduler {
     @Scheduled(cron = "*/15 * * * * *")
     public void generateRanking() {
         log.info("Generating ranking for previous day");
-        usersHitsRankingFacade.generateRankingForYesterday();
+        usersHitsRankingFacade.generateRankingForSpecifiedDay(1L);
     }
 }

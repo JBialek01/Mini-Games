@@ -14,10 +14,12 @@ class UserResultRetriever {
     private final UserGameSessionRepository userGameSessionRepository;
 
     NumberSubmissionDto getResultForSpecifiedUserAndDay(final String userId, final Integer days) {
-
         LocalDate date = LocalDate.now().minusDays(days);
         Optional<UserGameSessionResult> result = userGameSessionRepository.findByUserIdAndDate(userId, date);
-        NumberSubmissionDto dto = new NumberSubmissionDto(result.get().getAttempts(), result.get().getMessage());
-        return dto;
+        if (result.isPresent()) {
+            return new NumberSubmissionDto(result.get().getAttempts(), result.get().getMessage());
+        } else {
+            return new NumberSubmissionDto(0, "No result found for the specified day");
+        }
     }
 }

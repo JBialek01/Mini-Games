@@ -12,6 +12,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -51,6 +52,18 @@ class UserResultsChecker {
             userResults.add(userResult);
         }
         return UserResultsMapper.mapToUserResultsDto(userResults);
+    }
+
+    void saveUserResults(final UserResultsDto testResult) {
+        UserResults userResult = new UserResults(
+                testResult.userId(),
+                UUID.randomUUID().toString(),
+                testResult.userNumbers(),
+                testResult.date().toInstant(),
+                testResult.winningNumbers(),
+                testResult.hits()
+        );
+        userResultsRepository.save(userResult);
     }
 }
 

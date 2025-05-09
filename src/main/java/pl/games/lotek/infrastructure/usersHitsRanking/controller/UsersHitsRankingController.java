@@ -21,21 +21,16 @@ public class UsersHitsRankingController {
 
     private final UsersHitsRankingFacade usersHitsRankingFacade;
 
-    @PostMapping("/generate")
-    public ResponseEntity<List<UsersHitsRankingDto>> generateAndGetRankingForPreviousDay() {
-        usersHitsRankingFacade.generateRankingForYesterday();
-        List<UsersHitsRankingDto> usersHitsRankingDtos = usersHitsRankingFacade.fetchAllRankingEntries();
-        return ResponseEntity.ok(usersHitsRankingDtos);
-    }
-
     @GetMapping
     public ResponseEntity<List<UsersHitsRankingDto>> getRankingForPreviousDay() {
-        List<UsersHitsRankingDto> usersHitsRankingDtos = usersHitsRankingFacade.fetchAllRankingEntries();
+        usersHitsRankingFacade.generateRankingForSpecifiedDay(1L);
+        List<UsersHitsRankingDto> usersHitsRankingDtos = usersHitsRankingFacade.fetchAllRankingEntriesByDay(1L);
         return ResponseEntity.ok(usersHitsRankingDtos);
     }
 
     @GetMapping("/{daysToSubstract}")
     public ResponseEntity<List<UsersHitsRankingDto>> getRankingForSpecifiedDay(@PathVariable("daysToSubstract") Long days) {
+        usersHitsRankingFacade.generateRankingForSpecifiedDay(days);
         List<UsersHitsRankingDto> usersHitsRankingDtos = usersHitsRankingFacade.fetchAllRankingEntriesByDay(days);
         return ResponseEntity.ok(usersHitsRankingDtos);
     }

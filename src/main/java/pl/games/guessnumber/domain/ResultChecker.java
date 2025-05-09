@@ -12,7 +12,7 @@ import java.time.ZoneOffset;
 @AllArgsConstructor
 class ResultChecker {
 
-    private final WinningNumberProvider winningNumberProvider;
+    private final WinningNumberProviderInterface winningNumberProvider;
     private final UserGameSessionRepository sessionRepository;
 
     NumberSubmissionDto checkResult(String userId, SavedNumberDto savedNumberDto) {
@@ -40,9 +40,11 @@ class ResultChecker {
 
         if (guess < winningNumber) {
             session.setMessage("Provided number is too low");
+            sessionRepository.save(session);
             return new NumberSubmissionDto(session.getAttempts(), session.getMessage());
         } else {
             session.setMessage("Provided number is too high");
+            sessionRepository.save(session);
             return new NumberSubmissionDto(session.getAttempts(), session.getMessage());
         }
     }
