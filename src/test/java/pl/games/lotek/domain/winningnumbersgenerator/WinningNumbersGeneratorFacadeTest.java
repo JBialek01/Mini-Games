@@ -40,5 +40,4 @@ class WinningNumbersGeneratorFacadeTest {
         assertTrue(winningNumbers.stream().allMatch(number -> number >= 1 && number <= 99));
         assertThat(winningNumbers).isEqualTo(winningNumbers2).isEqualTo(winningNumbers3);
     }
-
 }

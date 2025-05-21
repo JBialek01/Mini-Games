@@ -7,6 +7,8 @@ import pl.games.lotek.domain.util.TimeService;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
@@ -18,7 +20,7 @@ class WinningNumbersGenerator {
     private final WinningNumbersRepository winningNumbersRepository;
 
     Set<Integer> getWinningNumbersForYesterday() {
-        LocalDateTime yesterday = LocalDateTime.now().minusDays(1);
+        ZonedDateTime yesterday = ZonedDateTime.now(ZoneOffset.UTC).minusDays(1);
         Instant startOfPreviousDay = TimeService.getStartOfPreviousUtcDay();
         Instant endOfPreviousDay = TimeService.getEndOfPreviousUtcDay();
         WinningNumbers existingRecord = winningNumbersRepository.findByDateBetween(startOfPreviousDay, endOfPreviousDay);
@@ -26,7 +28,7 @@ class WinningNumbersGenerator {
             return existingRecord.getWinningNumbers();
         }
         Set<Integer> newWinningNumbers = generateWinningNumbers();
-        WinningNumbers newEntry = new WinningNumbers(yesterday, newWinningNumbers);
+        WinningNumbers newEntry = new WinningNumbers(yesterday.toLocalDateTime(), newWinningNumbers);
         winningNumbersRepository.save(newEntry);
         return newWinningNumbers;
     }
